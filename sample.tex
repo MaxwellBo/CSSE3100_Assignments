@@ -1,13 +1,45 @@
 \documentclass{article}
-\usepackage{fullpage}
-\usepackage{oz}
-\usepackage{definitions}
+\usepackage{fullpage}   % reduces margins
+\usepackage{oz}            % contains many mathematical symbols
 
-\title{\bf Assignment 1: Background theory}
-\author{Maxwell Bo  ~~ 4392687}
+% definitions for GCL
+\newcommand{\Skip}{{\bf skip}}    
+\newcommand{\Abort}{{\bf abort}}
+\newcommand{\If}{{\bf if}}
+\newcommand{\Fi}{{\bf fi}}
+\newcommand{\Do}{{\bf do}}
+\newcommand{\Od}{{\bf od}}
+\newcommand{\Choice}{\mathrel{\tt [\hspace*{-1pt}]}}
+
+\newcommand{\entails}{\Rrightarrow}
+\newcommand{\refsto}{\mathrel{\sqsubseteq}}
+
+% definitions for writing proofs
+\newlength{\OBLS}\setlength{\OBLS}{0ex} %{\baselineskip}
+\newlength{\OPAR}\setlength{\OPAR}{\parindent}
+\newcommand{\pgskip}{\hspace{\mathindent}\=\+}
+\newcommand{\FOR}[1]{\FRM{\,#1\,}}
+\newcommand{\FRM}[1]{\mbox{$#1$}}
+\newcommand{\DERIVE}
+  {\setlength{\baselineskip}{1.3\baselineskip}
+  \begin{tabbing}%
+  \hspace{\OPAR}\=\hspace{\OPAR}\=\hspace{\OPAR}\=\hspace{\OPAR}\=\hspace{\OPAR}\=\hspace{\OPAR}\=\kill
+  }
+\newcommand{\ENDDERIVE}
+ {\end{tabbing}\setlength{\baselineskip}{\OBLS}
+}
+\newcommand{\form}[1] {\>\>\FOR{#1}}
+\newcommand{\hint}[2]  {\\*\>\FRM{#1}\ \ \ {\{#2\}}\\}
+
+% your document starts here
+\title{\bf Assignment 1: Background theory}  % \bf produces boldface font
+\author{Graeme Smith  ~~ 12345678}   % change to your name and student number (note: ~ adds a single space)
+% add \date{} here if you don't want the date to appear
 
 \begin{document}
 \maketitle
+
+%Here is an example using the definitions above and mathematical symbols from the oz package. 
 
 Given 
 
