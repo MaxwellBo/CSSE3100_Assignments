@@ -20,10 +20,13 @@
 		\item TODO
 	\end{enumerate}
 	\item 
-		\[
-		x, y : [~\true,~x = z^2 \land y = z^4~] ~\sqsubseteq~ x = z * z; y = x * x;
-		\]
-
+		\DERIVE
+		\form{x,y:[\true, x = z^2 \land y = z^4]}
+		\hint{\refsto} {Composition Rule}
+		\form{x,y:[\true, x = z^2]; x,y:[x = z^2, x = z^2 \land y = z^4]}
+		\hint{\refsto} {Assignment Rule: $\true \entails x = z^2 [x \backslash z^2]$}
+		\form{x = z^2}
+		\ENDDERIVE
 	\item
 	\begin{enumerate}
 		\item TODO
