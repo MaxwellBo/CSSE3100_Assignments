@@ -13,29 +13,35 @@
 \maketitle
 
 \begin{enumerate}
-	\item 
-	\begin{enumerate}
-		\item \[ y: [~\true, ~(x = 0 \land y = 0) \lor (y = y_0 / x \land x \neq 0)~]\]
-		\item \[ y: [~\true, ~(x = 0) \lor (y = y_0 / x \land x \neq 0)~]\]
-		\item TODO
-	\end{enumerate}
-	\item 
-		\DERIVE
-		\form{x,y:[\true, x = z^2 \land y = z^4]}
-		\hint{\refsto} {Composition Rule}
-		\form{x,y:[\true, x = z^2]; x,y:[x = z^2, x = z^2 \land y = z^4]}
-		\hint{\refsto} {Assignment Rule: $\true \entails x = z^2 [x \backslash z^2]$}
-		\form{x = z^2; x,y:[x = z^2, x = z^2 \land y = z^4]}
-		\hint{\refsto} {Assignment Rule: $x = z^2 \entails x = z^2 \land y = z ^ 4[y \backslash x^2]$}
-		\form{x := z^2; y := x^2;}
-		\ENDDERIVE
-	\item
-	\begin{enumerate}
-		\item TODO
-		\item TODO
-	\end{enumerate}
-	\item TODO
-	\item TODO
+    \item 
+    \begin{enumerate}
+        \item \[ y: [~\true, ~(x = 0 \land y = 0) \lor (y = y_0 / x \land x \neq 0)~]\]
+        \item \[ y: [~\true, ~(x = 0) \lor (y = y_0 / x \land x \neq 0)~]\]
+        \item TODO
+    \end{enumerate}
+    \item 
+        \DERIVE
+        \form{x,y:[\true, x = z^2 \land y = z^4]}
+        \hint{\refsto} {Composition Rule}
+        \form{x,y:[\true, x = z^2]; x,y:[x = z^2, x = z^2 \land y = z^4]}
+        \hint{\refsto} {Assignment Rule: $\true \entails x = z^2 [x \backslash z^2]$}
+        \form{x = z^2; x,y:[x = z^2, x = z^2 \land y = z^4]}
+        \hint{\refsto} {Assignment Rule: $x = z^2 \entails x = z^2 \land y = z ^ 4[y \backslash x^2]$}
+        \form{x := z^2; y := x^2} 
+        \ENDDERIVE
+    \begin{enumerate}
+        \item Given that
+        \begin{eqnarray*}
+            wp(y := 10, \true) & \equiv & true[y \backslash 10]\\
+                               & \equiv & \true
+        \end{eqnarray*} and 
+        \begin{eqnarray*}
+            wp(\If~ (x > 0 ~\lor~ y < 10) \rightarrow y:= 10 ~\Fi, \true) & \equiv & ( x > 0 ~\lor~ y < 10) ~\land~ ((x > 0 ~\lor~ y < 10) \rightarrow wp(y := 10, \true)) 
+        \end{eqnarray*}
+        \item TODO
+    \end{enumerate}
+    \item TODO
+    \item TODO
 \end{enumerate}
 
 Given 
