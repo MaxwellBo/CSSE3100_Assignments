@@ -30,12 +30,12 @@
         \form{x := z^2; y := x^2} 
         \ENDDERIVE
     \begin{enumerate}
-        \item Given that
+        \item Assuming that
             \begin{eqnarray*}
-                wp(y := 10,\ \true) & \equiv & true[y \backslash 10]\\
+                wp(y := 10,\ \true) & \equiv & \true[y \backslash 10]\\
                                    & \equiv & \true
             \end{eqnarray*} 
-                and 
+                we can conclude that 
             \begin{eqnarray*}
                 wp(\If~ (x > 0 ~\lor~ y < 10) \rightarrow y:= 10 ~\Fi,\ \true) & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \\
                     & & ((x > 0 ~\lor~ y < 10) \rightarrow wp(y := 10,\ \true))\\
@@ -44,6 +44,9 @@
             \end{eqnarray*}
             As $y < 10 \entails (x > 0 \lor y < 10)$, the Hoare triple is $\true$.
         \item TODO
+            \begin{eqnarray*}
+                wp(x := x ++y)
+            \end{eqnarray*}
     \end{enumerate}
     \item TODO
     \item TODO
