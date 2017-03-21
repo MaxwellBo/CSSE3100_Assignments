@@ -13,71 +13,73 @@
 \maketitle
 
 \begin{enumerate}
+\item 
+    \begin{enumerate}
+    \item $y: [\ \true,\ (x = 0 \land y = 0) \lor (y = y_0 / x \land x \neq 0)\ ]$
+    \item $y: [\ \true,\ (x = 0) \lor (y = y_0 / x \land x \neq 0)\ ]$
+    \item TODO
+    \end{enumerate}
+
+\item 
+    \DERIVE
+    \form{x,y:[\true, x = z^2 \land y = z^4]}
+    \hint{\refsto} {Composition}
+    \form{x,y:[\true, x = z^2]; x,y:[x = z^2, x = z^2 \land y = z^4]}
+    \hint{\refsto} {Assignment: $\true \entails x = z^2 [x \backslash z^2]$}
+    \form{x = z^2; x,y:[x = z^2, x = z^2 \land y = z^4]}
+    \hint{\refsto} {Assignment: $x = z^2 \entails x = z^2 \land y = z ^ 4[y \backslash x^2]$}
+    \form{x := z^2; y := x^2} 
+    \ENDDERIVE
+
+\item
+    \begin{enumerate}
+    \item Assuming
+        \begin{eqnarray*}
+            wp(y := 10,\ \true) & \equiv & \true[y \backslash 10]\\
+                               & \equiv & \true
+        \end{eqnarray*} 
+
+        we can conclude that 
+
+        \begin{eqnarray*}
+            wp(\If~ (x > 0 ~\lor~ y < 10) \rightarrow y:= 10\ \Fi,\ \true) & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \\
+                & & ((x > 0 ~\lor~ y < 10) \rightarrow wp(y := 10,\ \true))\\
+            & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \true\\
+            & \equiv & (x > 0 ~\lor~ y < 10)
+        \end{eqnarray*}
+
+        As $y < 10 \entails (x > 0 \lor y < 10)$, the Hoare triple is $\true$.
+
+    \item Assuming
+        \begin{eqnarray*}
+            wp(x := x + y,\ P[x \backslash x + y]) & \equiv & (P[x \backslash x + y])[x \backslash x + y]\\
+        \end{eqnarray*}
+
+        TODO
+
+    \end{enumerate}
+\item
+    \begin{enumerate}
     \item 
-        \begin{enumerate}
-            \item \[ y: [\ \true,\ (x = 0 \land y = 0) \lor (y = y_0 / x \land x \neq 0)\ ]\]
-            \item \[ y: [\ \true,\ (x = 0) \lor (y = y_0 / x \land x \neq 0)\ ]\]
-            \item TODO
-        \end{enumerate}
+        \DERIVE
+        \form{y:[y < 10, y > 0]}
+        \hint{\refsto} {Selection: $y < 10 \entails (x > 0 \lor y < 10)$}
+        \form{\If~ (x > 0 \lor y < 10) \rightarrow y:[(x > 0 \lor y < 10) \land (y < 10),\ y > 0]\ \Fi}
+        \hint{\refsto} {Absorption 1: $(x > 0 \lor y < 10) \land (y < 10) = y < 10$}
+        \form{\If~ (x > 0 \lor y < 10) \rightarrow y:[y < 10,\ y > 0]\ \Fi}
+        \hint{\refsto} {Assignment: $y < 10 \entails y > 0[y \backslash 10]$}
+        \form{\If~ (x > 0 \lor y < 10) \rightarrow y := 10\ \Fi}
+        \ENDDERIVE
 
     \item 
         \DERIVE
-        \form{x,y:[\true, x = z^2 \land y = z^4]}
-        \hint{\refsto} {Composition}
-        \form{x,y:[\true, x = z^2]; x,y:[x = z^2, x = z^2 \land y = z^4]}
-        \hint{\refsto} {Assignment: $\true \entails x = z^2 [x \backslash z^2]$}
-        \form{x = z^2; x,y:[x = z^2, x = z^2 \land y = z^4]}
-        \hint{\refsto} {Assignment: $x = z^2 \entails x = z^2 \land y = z ^ 4[y \backslash x^2]$}
-        \form{x := z^2; y := x^2} 
+        \form{y:[y < 10, y > 0]}
+        \hint{\doesntrefsto} {Selection: $y < 10 \not\entails ((x > 0) \land (y < 10))$}
+
+        \form{\If~ ((x > 0) \land (y < 10)) \rightarrow y:[((x > 0) \land (y < 10)) \land (y < 10),\ y > 0]\ \Fi}
         \ENDDERIVE
-
-    \item
-        \begin{enumerate}
-            \item Assuming
-                \begin{eqnarray*}
-                    wp(y := 10,\ \true) & \equiv & \true[y \backslash 10]\\
-                                       & \equiv & \true
-                \end{eqnarray*} 
-                    we can conclude that 
-                \begin{eqnarray*}
-                    wp(\If~ (x > 0 ~\lor~ y < 10) \rightarrow y:= 10\ \Fi,\ \true) & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \\
-                        & & ((x > 0 ~\lor~ y < 10) \rightarrow wp(y := 10,\ \true))\\
-                    & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \true\\
-                    & \equiv & (x > 0 ~\lor~ y < 10)
-                \end{eqnarray*}
-                As $y < 10 \entails (x > 0 \lor y < 10)$, the Hoare triple is $\true$.
-
-            \item Assuming
-                \begin{eqnarray*}
-                    wp(x := x + y,\ P[x \backslash x + y]) & \equiv & (P[x \backslash x + y])[x \backslash x + y]\\
-                \end{eqnarray*}
-
-                TODO
-
-        \end{enumerate}
-    \item
-        \begin{enumerate}
-            \item 
-                \DERIVE
-                \form{y:[y < 10, y > 0]}
-                \hint{\refsto} {Selection: $y < 10 \entails (x > 0 \lor y < 10)$}
-                \form{\If~ (x > 0 \lor y < 10) \rightarrow y:[(x > 0 \lor y < 10) \land (y < 10),\ y > 0]\ \Fi}
-                \hint{\refsto} {Absorption 1: $(x > 0 \lor y < 10) \land (y < 10) = y < 10$}
-                \form{\If~ (x > 0 \lor y < 10) \rightarrow y:[y < 10,\ y > 0]\ \Fi}
-                \hint{\refsto} {Assignment: $y < 10 \entails y > 0[y \backslash 10]$}
-                \form{\If~ (x > 0 \lor y < 10) \rightarrow y := 10\ \Fi}
-                \ENDDERIVE
-
-            \item 
-                \DERIVE
-                \form{y:[y < 10, y > 0]}
-                \hint{\doesntrefsto} {Selection: $y < 10 \not\entails ((x > 0) \land (y < 10))$}
-
-                \form{\If~ ((x > 0) \land (y < 10)) \rightarrow y:[((x > 0) \land (y < 10)) \land (y < 10),\ y > 0]\ \Fi}
-                \ENDDERIVE
-        \end{enumerate}
-    \item TODO
-
+    \end{enumerate}
+\item TODO
 \end{enumerate}
 
 Given 
