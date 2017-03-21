@@ -1,4 +1,4 @@
-\RequirePackage[l2tabu, orthodox]{nag}
+% \RequirePackage[l2tabu, orthodox]{nag}
 
 \documentclass{article}
 \usepackage{fullpage}
@@ -19,6 +19,7 @@
             \item \[ y: [\ \true,\ (x = 0) \lor (y = y_0 / x \land x \neq 0)\ ]\]
             \item TODO
         \end{enumerate}
+
     \item 
         \DERIVE
         \form{x,y:[\true, x = z^2 \land y = z^4]}
@@ -29,6 +30,7 @@
         \hint{\refsto} {Assignment Rule: $x = z^2 \entails x = z^2 \land y = z ^ 4[y \backslash x^2]$}
         \form{x := z^2; y := x^2} 
         \ENDDERIVE
+
     \item
         \begin{enumerate}
             \item Assuming
@@ -44,13 +46,17 @@
                     & \equiv & (x > 0 ~\lor~ y < 10)
                 \end{eqnarray*}
                 As $y < 10 \entails (x > 0 \lor y < 10)$, the Hoare triple is $\true$.
+
             \item Assuming
                 \begin{eqnarray*}
                     wp(x := x + y,\ P[x \backslash x + y]) & \equiv & (P[x \backslash x + y])[x \backslash x + y]\\
                 \end{eqnarray*}
+
         \end{enumerate}
     \item TODO
+
     \item TODO
+    
 \end{enumerate}
 
 Given 
