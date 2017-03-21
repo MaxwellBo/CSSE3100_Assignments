@@ -40,7 +40,7 @@
                 \end{eqnarray*} 
                     we can conclude that 
                 \begin{eqnarray*}
-                    wp(\If\ (x > 0 ~\lor~ y < 10) \rightarrow y:= 10\ \Fi,\ \true) & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \\
+                    wp(\If~ (x > 0 ~\lor~ y < 10) \rightarrow y:= 10\ \Fi,\ \true) & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \\
                         & & ((x > 0 ~\lor~ y < 10) \rightarrow wp(y := 10,\ \true))\\
                     & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \true\\
                     & \equiv & (x > 0 ~\lor~ y < 10)
@@ -61,11 +61,11 @@
                 \DERIVE
                 \form{y:[y < 10, y > 0]}
                 \hint{\refsto} {Selection: $y < 10 \entails (x > 0 \lor y < 10)$}
-                \form{\If\ (x > 0 \lor y < 10) \rightarrow y:[(x > 0 \lor y < 10) \land (y < 10),\ y > 0]\ \Fi}
+                \form{\If~ (x > 0 \lor y < 10) \rightarrow y:[(x > 0 \lor y < 10) \land (y < 10),\ y > 0]\ \Fi}
                 \hint{\refsto} {Absorption 1: $(x > 0 \lor y < 10) \land (y < 10) = y < 10$}
-                \form{\If\ (x > 0 \lor y < 10) \rightarrow y:[y < 10,\ y > 0]\ \Fi}
+                \form{\If~ (x > 0 \lor y < 10) \rightarrow y:[y < 10,\ y > 0]\ \Fi}
                 \hint{\refsto} {Assignment: $y < 10 \entails y > 0[y \backslash 10]$}
-                \form{\If\ (x > 0 \lor y < 10) \rightarrow y := 10\ \Fi}
+                \form{\If~ (x > 0 \lor y < 10) \rightarrow y := 10\ \Fi}
                 \ENDDERIVE
 
             \item 
@@ -73,7 +73,7 @@
                 \form{y:[y < 10, y > 0]}
                 \hint{\doesntrefsto} {Selection: $y < 10 \not\entails ((x > 0) \land (y < 10))$}
 
-                \form{\If\ ((x > 0) \land (y < 10)) \rightarrow y:[((x > 0) \land (y < 10)) \land (y < 10),\ y > 0]\ \Fi}
+                \form{\If~ ((x > 0) \land (y < 10)) \rightarrow y:[((x > 0) \land (y < 10)) \land (y < 10),\ y > 0]\ \Fi}
                 \ENDDERIVE
         \end{enumerate}
     \item TODO
