@@ -40,7 +40,7 @@
                 \end{eqnarray*} 
                     we can conclude that 
                 \begin{eqnarray*}
-                    wp(\If~ (x > 0 ~\lor~ y < 10) \rightarrow y:= 10 ~\Fi,\ \true) & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \\
+                    wp(\If\ (x > 0 ~\lor~ y < 10) \rightarrow y:= 10\ \Fi,\ \true) & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \\
                         & & ((x > 0 ~\lor~ y < 10) \rightarrow wp(y := 10,\ \true))\\
                     & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \true\\
                     & \equiv & (x > 0 ~\lor~ y < 10)
@@ -53,10 +53,16 @@
                 \end{eqnarray*}
 
         \end{enumerate}
-    \item TODO
+    \item
+        \DERIVE
+        \form{y:[y < 10, y > 0]}
+        \hint{\refsto} {Selection Statement: $y < 10 \entails (x > 0 \lor y < 10)$}
+        \form{\If }
+        \ENDDERIVE
+
 
     \item TODO
-    
+
 \end{enumerate}
 
 Given 
