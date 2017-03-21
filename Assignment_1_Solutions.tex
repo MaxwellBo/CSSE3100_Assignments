@@ -29,25 +29,26 @@
         \hint{\refsto} {Assignment Rule: $x = z^2 \entails x = z^2 \land y = z ^ 4[y \backslash x^2]$}
         \form{x := z^2; y := x^2} 
         \ENDDERIVE
-    \begin{enumerate}
-        \item Assuming that
-            \begin{eqnarray*}
-                wp(y := 10,\ \true) & \equiv & \true[y \backslash 10]\\
-                                   & \equiv & \true
-            \end{eqnarray*} 
-                we can conclude that 
-            \begin{eqnarray*}
-                wp(\If~ (x > 0 ~\lor~ y < 10) \rightarrow y:= 10 ~\Fi,\ \true) & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \\
-                    & & ((x > 0 ~\lor~ y < 10) \rightarrow wp(y := 10,\ \true))\\
-                & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \true\\
-                & \equiv & (x > 0 ~\lor~ y < 10)
-            \end{eqnarray*}
-            As $y < 10 \entails (x > 0 \lor y < 10)$, the Hoare triple is $\true$.
-        \item TODO
-            \begin{eqnarray*}
-                wp(x := x ++y)
-            \end{eqnarray*}
-    \end{enumerate}
+    \item
+        \begin{enumerate}
+            \item Assuming
+                \begin{eqnarray*}
+                    wp(y := 10,\ \true) & \equiv & \true[y \backslash 10]\\
+                                       & \equiv & \true
+                \end{eqnarray*} 
+                    we can conclude that 
+                \begin{eqnarray*}
+                    wp(\If~ (x > 0 ~\lor~ y < 10) \rightarrow y:= 10 ~\Fi,\ \true) & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \\
+                        & & ((x > 0 ~\lor~ y < 10) \rightarrow wp(y := 10,\ \true))\\
+                    & \equiv & (x > 0 ~\lor~ y < 10) ~\land~ \true\\
+                    & \equiv & (x > 0 ~\lor~ y < 10)
+                \end{eqnarray*}
+                As $y < 10 \entails (x > 0 \lor y < 10)$, the Hoare triple is $\true$.
+            \item Assuming
+                \begin{eqnarray*}
+                    wp(x := x + y,\ P[x \backslash x + y]) & \equiv & (P[x \backslash x + y])[x \backslash x + y]\\
+                \end{eqnarray*}
+        \end{enumerate}
     \item TODO
     \item TODO
 \end{enumerate}
