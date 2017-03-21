@@ -23,11 +23,11 @@
     \item 
         \DERIVE
         \form{x,y:[\true, x = z^2 \land y = z^4]}
-        \hint{\refsto} {Composition Rule}
+        \hint{\refsto} {Composition}
         \form{x,y:[\true, x = z^2]; x,y:[x = z^2, x = z^2 \land y = z^4]}
-        \hint{\refsto} {Assignment Rule: $\true \entails x = z^2 [x \backslash z^2]$}
+        \hint{\refsto} {Assignment: $\true \entails x = z^2 [x \backslash z^2]$}
         \form{x = z^2; x,y:[x = z^2, x = z^2 \land y = z^4]}
-        \hint{\refsto} {Assignment Rule: $x = z^2 \entails x = z^2 \land y = z ^ 4[y \backslash x^2]$}
+        \hint{\refsto} {Assignment: $x = z^2 \entails x = z^2 \land y = z ^ 4[y \backslash x^2]$}
         \form{x := z^2; y := x^2} 
         \ENDDERIVE
 
@@ -56,8 +56,12 @@
     \item
         \DERIVE
         \form{y:[y < 10, y > 0]}
-        \hint{\refsto} {Selection Statement: $y < 10 \entails (x > 0 \lor y < 10)$}
-        \form{\If }
+        \hint{\refsto} {Selection: $y < 10 \entails (x > 0 \lor y < 10)$}
+        \form{\If\ (x > 0 \lor y < 10) \rightarrow y:[(x > 0 \lor y < 10) \land (y < 10),\ y > 0]\ \Fi}
+        \hint{\refsto} {Absorption 1: $(x > 0 \lor y < 10) \land (y < 10) = y < 10$}
+        \form{\If\ (x > 0 \lor y < 10) \rightarrow y:[y < 10,\ y > 0]\ \Fi}
+        \hint{\refsto} {Assignment: $y < 10 \entails y > 0[y \backslash 10]$}
+        \form{\If\ (x > 0 \lor y < 10) \rightarrow y := 10\ \Fi}
         \ENDDERIVE
 
 
