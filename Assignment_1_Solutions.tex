@@ -22,11 +22,11 @@
 
 \item 
     \DERIVE
-    \form{x,y:[\true, x = z^2 \land y = z^4]}
+    \form{x,y:[\true,\ x = z^2 \land y = z^4]}
     \hint{\refsto} {Composition}
-    \form{x,y:[\true, x = z^2]; x,y:[x = z^2, x = z^2 \land y = z^4]}
+    \form{x,y:[\true,\ x = z^2]; x,y:[x = z^2,\ x = z^2 \land y = z^4]}
     \hint{\refsto} {Assignment: $\true \entails x = z^2 [x \backslash z^2]$}
-    \form{x = z^2; x,y:[x = z^2, x = z^2 \land y = z^4]}
+    \form{x = z^2; x,y:[x = z^2,\ x = z^2 \land y = z^4]}
     \hint{\refsto} {Assignment: $x = z^2 \entails x = z^2 \land y = z ^ 4[y \backslash x^2]$}
     \form{x := z^2; y := x^2} 
     \ENDDERIVE
@@ -48,7 +48,7 @@
             & \equiv & (x > 0 ~\lor~ y < 10)
         \end{eqnarray*}
 
-        As $y < 10 \entails (x > 0 \lor y < 10)$, the Hoare triple is $\true$.
+        As $y < 10 \entails (x > 0 \lor y < 10)$, the Hoare Triple is $\true$.
 
     \item Assuming
         \begin{eqnarray*}
@@ -57,7 +57,18 @@
                 & \equiv & P[x \backslash x + 2y]
         \end{eqnarray*}
 
-        TODO
+        Using this
+
+        \[ \hoare{\true[x \backslash x + 2y]}{x := x + y}{\true[x \backslash x + y]} \]
+
+        holds but
+
+        \begin{eqnarray*}
+            \hoare{(x > 8)[x \backslash x + 2y]}{x := x + y}{(x > 8)[x \backslash x + y]} & \equiv & \hoare{x + 2y > 8}{x := x + y}{x + y > 8}
+        \end{eqnarray*}
+
+        does not. Therefore, the choice of $P$ determines the validity of the Hoare Triple, due to $P$ having arbitrary.
+        Assuming that $P$ is quantified over all possible predicates, the Hoare Triple does not hold
 
     \end{enumerate}
 \item
@@ -81,7 +92,12 @@
         \form{\If~ ((x > 0) \land (y < 10)) \rightarrow y:[((x > 0) \land (y < 10)) \land (y < 10),\ y > 0]\ \Fi}
         \ENDDERIVE
     \end{enumerate}
-\item TODO
+\item
+    \DERIVE
+    \form{w:[P, Q]}
+    \hint{\refsto} {Composition}
+    \form{w: [P, I] \ }
+    \ENDDERIVE
 \end{enumerate}
 
 % Given 
