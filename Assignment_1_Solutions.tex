@@ -93,6 +93,9 @@
         \ENDDERIVE
     \end{enumerate}
 \item
+
+    \[\forall S, B \cdot \Repeat\ S\ \Until\ B ~\equiv~ S; \Do\ \neg B \rightarrow S\ \Od\]
+    $\therefore$
     \DERIVE
     \form{w:[P, Q]}
     \hint{\refsto} {Composition}
@@ -103,6 +106,8 @@
     \form{w: [P, I]; \Do~ (\neg B) \rightarrow
  w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]\ \Od}
  \ENDDERIVE
+
+
 \end{enumerate}
 
 % Given 
