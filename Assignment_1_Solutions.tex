@@ -94,8 +94,10 @@
     \end{enumerate}
 \item
 
-    \[\forall S, B \cdot \Repeat\ S\ \Until\ B ~\equiv~ S; \Do\ \neg B \rightarrow S\ \Od\]
+    \[\forall S, B ~\cdot~ (\Repeat\ S\ \Until\ B ~\equiv~ S; \Do\ \neg B \rightarrow S\ \Od)\]
+
     $\therefore$
+
     \DERIVE
     \form{w:[P, Q]}
     \hint{\refsto} {Composition}
@@ -105,8 +107,18 @@
     \hint{\refsto} {Repetition}
     \form{w: [P, I]; \Do~ (\neg B) \rightarrow
  w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]\ \Od}
- \ENDDERIVE
+    \ENDDERIVE
 
+    $w: [P, I]$ and $w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]$ can both refine to the same program, $S$.\\
+
+    Thus, $P \entails I \land \neg B$, so such that for an arbitrary $S$ with precondition $P$, $S$ can preserve the requirements of the $\Do$ loop.\\
+
+    Given both $I \land \neg(\neg B) \entails Q$ and $P \entails I \land \neg B$, we can formulate\\
+
+    \begin{center}
+    if $P \entails I \land \neg B$ then $w:[P, I \land B] ~\refsto~ \Repeat\ w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]\ \Until\ B$\\
+    where $I$ is a loop invariant, and $V$ is a loop variant
+    \end{center}
 
 \end{enumerate}
 
