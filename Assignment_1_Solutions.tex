@@ -6,6 +6,7 @@
 \usepackage{definitions}
 \usepackage{todonotes}
 
+
 \title{\bf Assignment 1: Background theory}
 \author{Maxwell Bo  ~~ 4392687}
 
@@ -50,25 +51,43 @@
 
         As $y < 10 \entails (x > 0 \lor y < 10)$, the Hoare Triple is $\true$.
 
-    \item Assuming
+    \item
         \begin{eqnarray*}
             wp(x := x + y,\ P[x \backslash x + y]) & \equiv & (P[x \backslash x + y])[x \backslash x + y]\\
                 & \equiv & P[x \backslash (x + y) + y]\\
                 & \equiv & P[x \backslash x + 2y]
         \end{eqnarray*}
 
-        Using this
+        Assuming that $P$ is quantified over all possible predicates,        
 
-        \[ \hoare{\true[x \backslash x + 2y]}{x := x + y}{\true[x \backslash x + y]} \]
+        \begin{equation}
+        \hoare{P}{x := x + y}{P[x \backslash x + y]}
+        \end{equation}
+         
+        does not hold, due to the choice of $P$ determining the validity of the Hoare Triple.\\
 
-        holds but
+        As a counter example, let $P \equiv (x = 0)$, such that the Triple is
+
+        \begin{equation}
+        \hoare{x = 0}{x := x + y}{x = 0[x \backslash x + y]}
+        \end{equation}
+
+        Given that
 
         \begin{eqnarray*}
-            \hoare{(x > 8)[x \backslash x + 2y]}{x := x + y}{(x > 8)[x \backslash x + y]} & \equiv & \hoare{x + 2y > 8}{x := x + y}{x + y > 8}
+            wp(x := x + y,\ x = 0[x \backslash x + y]) & \equiv & x = 0[x \backslash x + 2y]\\
+                & \equiv & x + 2y = 0
         \end{eqnarray*}
 
-        does not. Therefore, the choice of $P$ determines the validity of the Hoare Triple, due to $P$ having arbitrary.
-        Assuming that $P$ is quantified over all possible predicates, the Hoare Triple does not hold
+        \begin{equation}
+        (x = 0) \not\entails (x + 2y = 0)\\
+        \end{equation}
+
+        \begin{equation}
+        \therefore \not\forall P : (\hoare{P}{S}{Q}) \rightarrow (P \entails wp(S, Q))\\
+        \end{equation}
+
+        Thus, the Hoare Triple is $\false$.
 
     \end{enumerate}
 \item
@@ -94,7 +113,7 @@
     \end{enumerate}
 \item
 
-    \[\forall S, B ~\cdot~ (\Repeat\ S\ \Until\ B ~\equiv~ S; \Do\ \neg B \rightarrow S\ \Od)\]
+    \[\forall S,\ B : (\Repeat\ S\ \Until\ B ~\equiv~ S; \Do\ \neg B \rightarrow S\ \Od)\]
 
     $\therefore$
 
@@ -109,14 +128,14 @@
  w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]\ \Od}
     \ENDDERIVE
 
-    $w: [P, I]$ and $w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]$ can both refine to the same program, $S$.\\
+    $w: [P,\ I]$ and $w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]$ can both refine to the same program, $S$.\\
 
-    Thus, $P \entails I \land \neg B$, so such that for an arbitrary $S$ with precondition $P$, $S$ can preserve the requirements of the $\Do$ loop.\\
+    Thus, $P \entails I \land \neg B$, so such that for an arbitrary $S$ with precondition $P$, $S$ satisfies the requirements of the $\Do$ loop.\\
 
     Given both $I \land \neg(\neg B) \entails Q$ and $P \entails I \land \neg B$, we can formulate\\
 
     \begin{center}
-    if $P \entails I \land \neg B$ then $w:[P, I \land B] ~\refsto~ \Repeat\ w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]\ \Until\ B$\\
+    if $P \entails I \land \neg B$ then $w:[P,\ I \land B] ~\refsto~ \Repeat\ w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]\ \Until\ B$\\
     where $I$ is a loop invariant, and $V$ is a loop variant
     \end{center}
 
