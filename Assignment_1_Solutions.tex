@@ -29,7 +29,7 @@
     \form{x,y:[\true,\ x = z^2]; x,y:[x = z^2,\ x = z^2 \land y = z^4]}
     \hint{\refsto} {Assignment: $\true \entails x = z^2 [x \backslash z^2]$}
     \form{x = z^2; x,y:[x = z^2,\ x = z^2 \land y = z^4]}
-    \hint{\refsto} {Assignment: $x = z^2 \entails x = z^2 \land y = z ^ 4[y \backslash x^2]$}
+    \hint{\refsto} {Assignment: $x = z^2 \entails (x = z^2 \land y = z ^ 4)[y \backslash x^2]$}
     \form{x := z^2; y := x^2} 
     \ENDDERIVE
 
