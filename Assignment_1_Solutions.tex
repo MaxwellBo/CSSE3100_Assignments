@@ -18,7 +18,8 @@
     \begin{enumerate}
     \item $y: [\ \true,\ (x = 0 \Rightarrow y = 0) \land (x \neq 0  \Rightarrow y = \frac{y_0}{x})\ ]$
     \item $y: [\ \true,\ (x = 0 \Rightarrow \true) \land (x \neq 0  \Rightarrow y = \frac{y_0}{x})\ ]$
-    \item TODO
+    \item Let $S = [\ x \neq 0,\ y = \frac{y_0}{x}\ ]$, $A =$ (a) and $B = $ (b).\\ 
+    $B$ refines to $A$, as $A$ has a stronger postcondition than that of $B$. The user may replace a program written to the specification of $B$ with one written to $A$ and uphold the contract. $S$ does not refine to $B$. While the precondition of $B$ is weaker than that of $S$, the postcondition of $B$ is not stronger or equivalent to that of $A$. As $S$ does not refine to $B$, $S$ does not refine to $A$, by the law of transitivity. 
     \end{enumerate}
 
 \item 
