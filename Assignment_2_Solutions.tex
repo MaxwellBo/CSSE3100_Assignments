@@ -25,22 +25,22 @@ and
 
 \begin{eqnarray*}
 post & \triangleq & D = A\, \cap\, B\, \cap\, C\\
-     & \land & i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len] ~\land~ r \in [0, D.len]\\
+     & \land & r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
      & \land & (i = A.len \,\lor\, j = B.len \,\lor\, k = C.len)\\
 \end{eqnarray*}
 
 % we're free to let the index variable reach X.len, because the loops _should abort_ when it reaches that condition, because at least one of the sets has been exhaustively checked.
 
 \DERIVE
-\form{i, j, k, r, D:[pre, post]}
+\form{D, r, i, j, k:[pre, post]}
 \hint{\refsto} {Composition: middle predicate is \textit{inv}}
-\form{i, j, k, r, D:[pre, inv]; i, j, k, r, D:[inv, post]}
+\form{D, r, i, j, k:[pre, inv]; D, r, i, j, k[inv, post]}
 \form{}
 \ENDDERIVE
 
 \begin{eqnarray*}
-inv & \triangleq & D_{[0, r)} = A_{[0, i)}\, \cap\, B_{[0, j)}\, \cap\, C_{[0, k)}
-     & \land & i \in [0, A.len) ~\land~ j \in [0, B.len) ~\land~ k \in [0, C.len) ~\land~ r \in [0, D.len)\\
+inv & \triangleq & D_{[0, r)} = A_{[0, i)}\, \cap\, B_{[0, j)}\, \cap\, C_{[0, k)}\\
+     & \land & r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
 \end{eqnarray*}
 % HERE BE DRAGONS: Don't forgot that these ranges are noninclusive array slices
 
