@@ -18,15 +18,15 @@ Given
 
 \begin{eqnarray*}
 pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})\\
-    & \land & sorted(A) ~\land~ sorted(B) ~\land~ sorted(C)
+    && \land sorted(A) ~\land~ sorted(B) ~\land~ sorted(C)
 \end{eqnarray*}
 
 and
 
 \begin{eqnarray*}
 post & \triangleq & D = A\, \cap\, B\, \cap\, C\\
-     & \land & r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
-     & \land & (i = A.len\, \lor\, j = B.len\, \lor\, k = C.len)\\
+     && \land r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
+     && \land (i = A.len\, \lor\, j = B.len\, \lor\, k = C.len)\\
 \end{eqnarray*}
 
 % we're free to let the index variable reach X.len, because the loops _should abort_ when it reaches that condition, because at least one of the sets has been exhaustively checked.
