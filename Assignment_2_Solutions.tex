@@ -30,6 +30,17 @@ post & \triangleq & (D = A\, \cap\, B\, \cap\, C)\\
 
 % we're free to let the index variable reach X.len, because the loops _should abort_ when it reaches that condition, because at least one of the sets has been exhaustively checked.
 
+\DERIVE
+\form{i, j, k, r, D:[pre, post]}
+\hint{\refsto} {Composition: middle predicate is \textit{inv}}
+\form{i, j, k, r, D:[pre, inv]; i, j, k, r, D:[inv, post]}
+\form{}
+\ENDDERIVE
+
+\begin{eqnarray*}
+inv & \triangleq & (D_{[0, r)} = A_{[0, i)}\, \cap\, B_{[0, j)}\, \cap\, C_{[0, k)})
+\end{eqnarray*}
+% HERE BE DRAGONS: Don't forgot that these ranges are noninclusive array slices
 
 
 % Given 
