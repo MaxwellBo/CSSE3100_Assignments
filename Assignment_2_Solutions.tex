@@ -14,6 +14,24 @@
 
 \section{Part A}
 
+Given
+
+\begin{eqnarray*}
+pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})
+\end{eqnarray*}
+
+and
+
+\begin{eqnarray*}
+post & \triangleq & (D = A\, \cap\, B\, \cap\, C)\\
+     & \land & i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len] ~\land~ D \in [0, D.len]\\
+     & \land & (i = A.len \,\lor\, j = B.len \,\lor\, k = C.len)\\
+\end{eqnarray*}
+
+% we're free to let the index variable reach X.len, because the loops _should abort_ when it reaches that condition, because at least one of the sets has been exhaustively checked.
+
+
+
 % Given 
 
 % \[max(A,l,h,i) ~\defs~ \all j \in [l,h) \cdot (A_j \leq A_i) \land (l \leq i < h)\]   % \[ and \] tell Latex we are entering and leaving math mode

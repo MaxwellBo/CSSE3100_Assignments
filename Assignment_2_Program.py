@@ -6,6 +6,9 @@ def pretty(i, j, k, r, D):
 A = list(range(1, 12, 2)); print(f"The length of A is {len(A)}")
 B = list(range(5, 17, 1)); print(f"The length of B is {len(B)}")
 C = list(range(6, 19, 3)); print(f"The length of C is {len(C)}")
+# A = list(range(1, 10))
+# B = list(range(1, 10))
+# C = list(range(1, 10))
 D = [EMPTY] * max(len(A), len(B), len(C))
 
 i, j, k, r = 0, 0, 0, 0; print("\nKEY"); pretty("i", "j", "k", "r", D); print()
@@ -28,5 +31,4 @@ while ((i != len(A)) or (j != len(B)) or (k != len(C))):
         i, j, k, D[r], r = i + 1, j + 1, k + 1, A[i], r + 1
 
 assert set( i for i in D if i != EMPTY) == set(A) & set(B) & set(C)
-print(D)
-
+pretty(i, j, k, r, D)
