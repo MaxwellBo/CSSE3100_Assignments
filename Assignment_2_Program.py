@@ -13,10 +13,19 @@ D = [EMPTY] * max(len(A), len(B), len(C))
 
 i, j, k, r = 0, 0, 0, 0; print("\nKEY"); pretty("i", "j", "k", "r", D); print()
 
+VARIANT = min(len(A) - i, len(B) - j, len(C) - k)
+
 while ((i != len(A)) and (j != len(B)) and (k != len(C))):
-    # INVARIANT
-    assert (set(D[0:r]) == set(A[0:i]) & set(B[0:j]) & set(C[0:k]))
-    assert i in range(len(A)) and j in range(len(B)) and k in range(len(C)) and r in range(len(D))
+
+    D_IS_INTERSECTION_OF_ALL_SEEN = (set(D[0:r]) == set(A[0:i]) & set(B[0:j]) & set(C[0:k]))
+    IS_BOUNDED = i in range(len(A))\
+             and j in range(len(B))\
+             and k in range(len(C))\
+             and r in range(len(D))
+
+    assert IS_BOUNDED
+    assert D_IS_INTERSECTION_OF_ALL_SEEN
+    assert VARIANT != 0
 
     pretty(i, j, k, r, D)
 
@@ -33,9 +42,13 @@ while ((i != len(A)) and (j != len(B)) and (k != len(C))):
         print(f"At A[{i}], B[{j}], and C[{k}], they had the value {A[i]}")
         i, j, k, D[r], r = i + 1, j + 1, k + 1, A[i], r + 1
 
+    # Technically gets executed at the top of the loop
+    VARIANT = min(len(A) - i, len(B) - j, len(C) - k)
+
 
 # POSTCONDITION
 assert set( i for i in D if i != EMPTY) == set(A) & set(B) & set(C)
 assert i in range(len(A) + 1) and j in range(len(B) + 1) and k in range(len(C) + 1) and r in range(len(D) + 1)
+assert VARIANT == 0
 
 pretty(i, j, k, r, D)
