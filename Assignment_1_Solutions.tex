@@ -126,8 +126,7 @@
     \hint{\refsto} {Strengthen Postcondition: $I \land \neg(\neg B) \entails Q$}
     \form{w: [P, I]; w: [I, I \land \neg(\neg B)]}
     \hint{\refsto} {Repetition}
-    \form{w: [P, I]; \Do~ (\neg B) \rightarrow
- w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]\ \Od}
+    \form{w: [P, I]; \Do~ (\neg B) \rightarrow w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]\ \Od}
     \ENDDERIVE
 
     $w: [P,\ I]$ and $w:[I \land \neg B,\ I \land (0 \leqslant V < V_0)]$ can both refine to the same program, $S$.\\
