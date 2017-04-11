@@ -23,7 +23,7 @@ pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})
 and
 
 \begin{eqnarray*}
-post & \triangleq & (D = A\, \cap\, B\, \cap\, C)\\
+post & \triangleq & D = A\, \cap\, B\, \cap\, C\\
      & \land & i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len] ~\land~ D \in [0, D.len]\\
      & \land & (i = A.len \,\lor\, j = B.len \,\lor\, k = C.len)\\
 \end{eqnarray*}
@@ -38,7 +38,7 @@ post & \triangleq & (D = A\, \cap\, B\, \cap\, C)\\
 \ENDDERIVE
 
 \begin{eqnarray*}
-inv & \triangleq & (D_{[0, r)} = A_{[0, i)}\, \cap\, B_{[0, j)}\, \cap\, C_{[0, k)})
+inv & \triangleq & D_{[0, r)} = A_{[0, i)}\, \cap\, B_{[0, j)}\, \cap\, C_{[0, k)}
 \end{eqnarray*}
 % HERE BE DRAGONS: Don't forgot that these ranges are noninclusive array slices
 
