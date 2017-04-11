@@ -17,14 +17,15 @@
 Given
 
 \begin{eqnarray*}
-pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})
+pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})\\
+    & \land & sorted(A) ~\land~ sorted(B) ~\land~ sorted(C)
 \end{eqnarray*}
 
 and
 
 \begin{eqnarray*}
 post & \triangleq & D = A\, \cap\, B\, \cap\, C\\
-     & \land & i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len] ~\land~ D \in [0, D.len]\\
+     & \land & i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len] ~\land~ r \in [0, D.len]\\
      & \land & (i = A.len \,\lor\, j = B.len \,\lor\, k = C.len)\\
 \end{eqnarray*}
 
@@ -39,6 +40,7 @@ post & \triangleq & D = A\, \cap\, B\, \cap\, C\\
 
 \begin{eqnarray*}
 inv & \triangleq & D_{[0, r)} = A_{[0, i)}\, \cap\, B_{[0, j)}\, \cap\, C_{[0, k)}
+     & \land & i \in [0, A.len) ~\land~ j \in [0, B.len) ~\land~ k \in [0, C.len) ~\land~ r \in [0, D.len)\\
 \end{eqnarray*}
 % HERE BE DRAGONS: Don't forgot that these ranges are noninclusive array slices
 
