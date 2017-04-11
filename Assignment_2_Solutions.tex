@@ -1,0 +1,104 @@
+% \RequirePackage[l2tabu, orthodox]{nag}
+
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{oz}
+\usepackage{definitions}
+\usepackage{todonotes}
+
+\title{\bf Assignment 2: Verification}
+\author{Maxwell Bo  ~~ 43926871}
+
+\begin{document}
+\maketitle
+
+\section{Part A}
+
+% Given 
+
+% \[max(A,l,h,i) ~\defs~ \all j \in [l,h) \cdot (A_j \leq A_i) \land (l \leq i < h)\]   % \[ and \] tell Latex we are entering and leaving math mode
+
+% suppose we wanted to show that the specification
+
+% \[i,j:[A.len > 0, max(A,0,A.len,i)]\]
+
+% is refined by
+
+% \[i,j:=0,1;\\  % \\ adds a line break
+% \begin{array}{l}
+% \Do~ j < A.len \rightarrow\\
+% \t1 \begin{array}{l}   % \t1 introduces a tab. The array environment allows us to write 
+% \If~ A_j > A_i \rightarrow i:=j\\
+% \Choice  A_j \leq A_i \rightarrow {\bf skip} \\
+% \Fi; \\
+% j:=j+1\\
+% \end{array}\\
+% \Od\\
+% \end{array}\]
+
+% Parts of the proof follow:
+
+% \DERIVE
+% \form{i,j:[A.len > 0, max(A,0,A.len,i)]}
+% \hint{\refsto} {Strengthen post: $inv \land max(A,0,A.len,i) \entails max(A,0,A.len,i)$}  % $ changes between text and math mode
+% \form{i,j:[A.len > 0, inv \land max(A,0,A.len,i)]}
+% \hint{\equiv}{$max(A,0,A.len,i)$ is equivalent to $j = A.len$ when $inv$ is true}
+% \form{i,j:[A.len > 0, inv \land j  = A.len]}
+% \hint {\refsto} {Composition: mid predicate is $inv$}
+% \form {i,j:[A.len > 0, inv]; i,j:[inv, inv \land j= A.len]}
+% \hint {\refsto} {Assignment: $A.len > 0 \entails inv[i,j\backslash 0,1]$}
+% \form { i,j:=0,1; i,j:[inv, inv \land j= A.len]}
+% \ENDDERIVE
+  
+% The proof of the final step above is:
+
+% \DERIVE
+% \form{inv[i,j\backslash 0,1]}
+% \hint{\equiv}{definition of $inv$}
+% \form{max(A,0,j,i)[i,j\backslash 0,1]}
+% \hint{\equiv}{apply substitution}
+% \form{max(A,0,1,0)}
+% \hint{\equiv}{since $A_0$ only element in $A_{[0,1)}$}
+% \form{\true}
+% \ENDDERIVE
+
+% \pagebreak % forces a page break here
+
+% Continuing the refinement:
+
+% \DERIVE
+% \form{i,j:[inv, inv \land j=A.len]}
+% \hint{\refsto}{Repetition: $A.len-j$ is variant}
+% \form{\begin{array}{l}   
+% \Do~ j\neq A.len \rightarrow\\   
+% \t1 i,j:[inv \land j< A.len, inv \land (0 \leq A.len-j < A.len-j_0)]\\  
+% \Od \\
+% \end{array}}
+% \ENDDERIVE
+
+% Here is another part of the proof involving other GCL notation:
+
+% \DERIVE
+% \form{i:[inv \land j< A.len, max(A,0,j+1,i)]}
+% \hint{\refsto}{Selection: $P \entails A_i > A_j \lor A_j \leq A_i$, for any $P$}
+% \form{\begin{array}{l}
+% \If~ A_j > A_i \rightarrow i:[A_j > A_i \land inv \land j< A.len, max(A,0,j+1,i)]\\
+% \Choice A_j \leq A_i \rightarrow i:[A_j \leq A_i \land inv \land j< A.len, max(A,0,j+1,i)]\\
+% \Fi\\
+% \end{array}}
+% \hint{\sqsubseteq}{Assignment: $A_j > A_i \land inv \land j< A.len \entails max(A,0,j+1,i)[i\backslash j]$}
+% \form{\begin{array}{l}
+% \If~  A_j > A_i \rightarrow i:=j\\
+% \Choice A_j \leq A_i \rightarrow i:[A_j \leq A_i \land inv \land j< A.len, max(A,0,j+1,i)]\\
+% \Fi\\
+% \end{array}}
+% \hint{\refsto}{Skip: $A_j \leq A_i \land inv \land j< A.len \entails  max(A,0,j+1,i)$}
+% \form{\begin{array}{l}
+% \If~ A_j > A_i \rightarrow i:=j\\
+% \Choice A_j \leq A_i \rightarrow {\Skip} \\
+% \Fi\
+% \end{array}}
+% \ENDDERIVE
+  
+\end{document}
+
