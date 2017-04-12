@@ -157,8 +157,18 @@ and $\because$
 
 \DERIVE
 \hint {\doesntrefsto} {Assignment: TODO}
-\form{TODO}
-
+\form{
+\begin{array}{l}
+\ASSIGNMENT;\\
+\Do~ \GUARD \rightarrow\\
+    \t1 \begin{array}{l}
+        \If~   (A_i > B_j) \rightarrow j := j + 1\\
+        \Choice~ \IFCASE{(B_j > C_k)}\\
+        \Choice~ \IFCASE{(C_k > A_i)}\\
+        \Fi~     \IFCASE{(A_i = B_j) \land (B_j = C_k)}\\
+    \end{array}\\
+\Od\\
+\end{array}}
 \ENDDERIVE
 % \begin{eqnarray*}
 % (A_i > B_j)\, \land\, inv\, \land\, guard & \entails & inv\, \land \VARIANTEXP\\
