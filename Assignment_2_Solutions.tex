@@ -23,7 +23,7 @@ Given
 
 \begin{eqnarray*}
 pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})\\
-    && \land~ sorted(A) ~\land~ sorted(B) ~\land~ sorted(C)
+        && \land~ sorted(A) ~\land~ sorted(B) ~\land~ sorted(C)
 \end{eqnarray*}
 % TODO: Should these be ors?
 
@@ -31,8 +31,8 @@ and
 
 \begin{eqnarray*}
 post & \triangleq & D = A\, \cap\, B\, \cap\, C\\
-     && \land r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
-     && \land (i = A.len\, \lor\, j = B.len\, \lor\, k = C.len)\\
+        && \land r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
+        && \land (i = A.len\, \lor\, j = B.len\, \lor\, k = C.len)\\
 \end{eqnarray*}
 % TODO: Should this last line have ANDs because of the spec?}
 
@@ -48,7 +48,7 @@ $\because$
 
 \begin{eqnarray*}
 inv & \triangleq & D_{[0, r)} = A_{[0, i)}\, \cap\, B_{[0, j)}\, \cap\, C_{[0, k)}\\
-     && \land~ r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
+        && \land~ r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
 \end{eqnarray*}
 % HERE BE DRAGONS: Don't forgot that these ranges are noninclusive array slices
 
@@ -62,10 +62,10 @@ $\because$
 \begin{eqnarray*}
 inv[i, j, k, r\backslash 0, 0, 0, 0] 
     & \equiv & D_{[0, 0)} = A_{[0, 0)}\, \cap\, B_{[0, 0)}\, \cap\, C_{[0, 0)}\\
-     && \land~ 0 \in [0, D.len] ~\land~ 0 \in [0, A.len] ~\land~ 0 \in [0, B.len] ~\land~ 0 \in [0, C.len]\\
-     & \equiv & \emptyset = (\emptyset\, \cap\, \emptyset\, \cap\, \emptyset) ~\land~ (\true ~\land~ \true ~\land~ \true ~\land~ \true)\\
-     & \equiv & \emptyset = \emptyset ~\land~ \true\\
-     & \equiv & \true
+        && \land~ 0 \in [0, D.len] ~\land~ 0 \in [0, A.len] ~\land~ 0 \in [0, B.len] ~\land~ 0 \in [0, C.len]\\
+    & \equiv & \emptyset = (\emptyset\, \cap\, \emptyset\, \cap\, \emptyset) ~\land~ (\true ~\land~ \true ~\land~ \true ~\land~ \true)\\
+    & \equiv & \emptyset = \emptyset ~\land~ \true\\
+    & \equiv & \true
 \end{eqnarray*}
 
 \DERIVE
@@ -79,7 +79,7 @@ $\because$
 
 \begin{eqnarray*}
 inv \land \neg\GUARD \entails post & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) \entails post\\
-& \equiv & TODO
+                                   & \equiv & TODO
 \end{eqnarray*}
 % TODO: Does a \land b \entails a \land c \equiv b \entails c
 
@@ -93,6 +93,12 @@ inv \land \neg\GUARD \entails post & \equiv & inv \land (i = A.len\, \land\, j =
 \Od\\
 \end{array}}
 \ENDDERIVE
+
+
+\begin{eqnarray*}
+V & \triangleq & (A.len - i) + (B.len - j) + (C.len - k)\\
+  & \triangleq & (A.len + B.len + C.len) - (i + j + k)
+\end{eqnarray*}
 
 % Given 
 
