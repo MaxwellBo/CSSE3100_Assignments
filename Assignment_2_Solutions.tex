@@ -9,6 +9,8 @@
 \newcommand{\GUARD}{(i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len)}
 \newcommand{\ASSIGNMENT}{i, j, k, r := 0, 0, 0, 0}
 \newcommand{\ENV}{i, j, k, r, D}
+\newcommand{\INTERSECTION}[4]{D_{[0, {#1})} = A_{[0, {#2})}\, \cap\, B_{[0, {#3})}\, \cap\, C_{[0, {#4})}}
+\newcommand{\BOUNDED}[4]{{#1} \in [0, D.len] ~\land~ {#2} \in [0, A.len] ~\land~ {#3} \in [0, B.len] ~\land~ {#4} \in [0, C.len]}
 
 
 \title{\bf Assignment 2: Verification}
@@ -41,8 +43,8 @@ post & \triangleq & D_{[0, r)} = A\, \cap\, B\, \cap\, C\\
 where
 
 \begin{eqnarray*}
-inv & \triangleq & D_{[0, r)} = A_{[0, i)}\, \cap\, B_{[0, j)}\, \cap\, C_{[0, k)}\\
-        && \land~ r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
+inv & \triangleq & \INTERSECTION{r}{i}{j}{k}\\
+        && \land~ \BOUNDED{r}{i}{j}{k}\\
 \end{eqnarray*}
 % HERE BE DRAGONS: Don't forgot that these ranges are noninclusive array slices
 
@@ -55,8 +57,8 @@ $\because$
 
 \begin{eqnarray*}
 inv[i, j, k, r \backslash 0, 0, 0, 0] 
-    & \equiv & D_{[0, 0)} = A_{[0, 0)}\, \cap\, B_{[0, 0)}\, \cap\, C_{[0, 0)}\\
-        && \land~ 0 \in [0, D.len] ~\land~ 0 \in [0, A.len] ~\land~ 0 \in [0, B.len] ~\land~ 0 \in [0, C.len]\\
+    & \equiv & \INTERSECTION{0}{0}{0}{0}\\
+        && \land~ \BOUNDED{0}{0}{0}{0}\\
     & \equiv & \emptyset = (\emptyset\, \cap\, \emptyset\, \cap\, \emptyset) ~\land~ (\true ~\land~ \true ~\land~ \true ~\land~ \true)\\
     & \equiv & \emptyset = \emptyset ~\land~ \true\\
     & \equiv & \true
