@@ -41,7 +41,7 @@ post & \triangleq & D = A\, \cap\, B\, \cap\, C\\
 \form{\ENV:[pre, inv]; \ENV:[inv, post]}
 \ENDDERIVE
 
-$\because$
+where
 
 \begin{eqnarray*}
 inv & \triangleq & D_{[0, r)} = A_{[0, i)}\, \cap\, B_{[0, j)}\, \cap\, C_{[0, k)}\\
@@ -78,10 +78,12 @@ $\because$
 inv \land \neg\GUARD \entails post & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) \entails post\\
                                    & \equiv & TODO
 \end{eqnarray*}
+
+% TODO REMOVE THIS
 $((a \land b) \entails (a \land c)) \equiv (b \entails c)$
 
 \DERIVE
-\hint{\refsto} {Repetition Rule}
+\hint{\refsto} {Repetition}
 \form{
 \begin{array}{l}
 \ASSIGNMENT;\\
@@ -91,11 +93,33 @@ $((a \land b) \entails (a \land c)) \equiv (b \entails c)$
 \end{array}}
 \ENDDERIVE
 
+where
 
 \begin{eqnarray*}
 V & \triangleq & (A.len - i) + (B.len - j) + (C.len - k)\\
   & \triangleq & (A.len + B.len + C.len) - (i + j + k)
 \end{eqnarray*}
+
+\DERIVE
+\hint{\refsto} {Selection: $inv\, \land\, \GUARD \entails (G_1 \lor G_2 \lor G_3 \lor G_4)$}
+\form{
+\begin{array}{l}
+\ASSIGNMENT;\\
+\Do~ \GUARD \rightarrow\\
+    \t1 TODO\\
+\Od\\
+\end{array}}
+\ENDDERIVE
+
+where
+
+\begin{eqnarray*}
+G_1 & \triangleq & A_i > B_j\\
+G_2 & \triangleq & B_j > C_k\\
+G_3 & \triangleq & C_k > A_i\\
+G_4 & \triangleq & (A_i = B_j) \land (B_j = C_k)\\
+\end{eqnarray*}
+
 
 % Given 
 
