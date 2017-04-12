@@ -29,10 +29,7 @@ pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})\\
 and
 
 \begin{eqnarray*}
-post & \triangleq & D = A\, \cap\, B\, \cap\, C\\
-     & \triangleq & D_{[0, D.len)} = A_{[0, A.len)}\, \cap\, B_{[0, B.len)}\, \cap\, C_{[0, C.len)}
-        % && \land r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
-        % && \land (i = A.len\, \lor\, j = B.len\, \lor\, k = C.len)\\
+post & \triangleq & D_{[0, r)} = A\, \cap\, B\, \cap\, C\\
 \end{eqnarray*}
 
 \DERIVE
@@ -57,7 +54,7 @@ inv & \triangleq & D_{[0, r)} = A_{[0, i)}\, \cap\, B_{[0, j)}\, \cap\, C_{[0, k
 $\because$
 
 \begin{eqnarray*}
-inv[i, j, k, r\backslash 0, 0, 0, 0] 
+inv[i, j, k, r \backslash 0, 0, 0, 0] 
     & \equiv & D_{[0, 0)} = A_{[0, 0)}\, \cap\, B_{[0, 0)}\, \cap\, C_{[0, 0)}\\
         && \land~ 0 \in [0, D.len] ~\land~ 0 \in [0, A.len] ~\land~ 0 \in [0, B.len] ~\land~ 0 \in [0, C.len]\\
     & \equiv & \emptyset = (\emptyset\, \cap\, \emptyset\, \cap\, \emptyset) ~\land~ (\true ~\land~ \true ~\land~ \true ~\land~ \true)\\
@@ -76,11 +73,9 @@ $\because$
 
 \begin{eqnarray*}
 inv \land \neg\GUARD \entails post & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) \entails post\\
-                                   & \equiv & TODO
+   & \equiv & inv[i, j, k \backslash A.len, B.len, C.len] \entails post\\
+   & \equiv & TODO
 \end{eqnarray*}
-
-% TODO REMOVE THIS
-$((a \land b) \entails (a \land c)) \equiv (b \entails c)$
 
 \DERIVE
 \hint{\refsto} {Repetition}
@@ -101,7 +96,7 @@ V & \triangleq & (A.len - i) + (B.len - j) + (C.len - k)\\
 \end{eqnarray*}
 
 \DERIVE
-\hint{\refsto} {Selection: $inv\, \land\, \GUARD \entails (G_1 \lor G_2 \lor G_3 \lor G_4)$}
+\hint{\refsto} {Selection: $inv\, \land\, \GUARD \entails (G_1(i, j) \lor G_2(j, k) \lor G_3(k, i) \lor G_4(i, j, k))$}
 \form{
 \begin{array}{l}
 \ASSIGNMENT;\\
@@ -114,10 +109,10 @@ V & \triangleq & (A.len - i) + (B.len - j) + (C.len - k)\\
 where
 
 \begin{eqnarray*}
-G_1 & \triangleq & A_i > B_j\\
-G_2 & \triangleq & B_j > C_k\\
-G_3 & \triangleq & C_k > A_i\\
-G_4 & \triangleq & (A_i = B_j) \land (B_j = C_k)\\
+G_1(i, j) & \triangleq & A_i > B_j\\
+G_2(j, k) & \triangleq & B_j > C_k\\
+G_3(k, i) & \triangleq & C_k > A_i\\
+G_4(i, j, k) & \triangleq & (A_i = B_j) \land (B_j = C_k)\\
 \end{eqnarray*}
 
 
