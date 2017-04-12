@@ -127,6 +127,24 @@ G_3(k, i) & \triangleq & C_k > A_i\\
 G_4(i, j, k) & \triangleq & (A_i = B_j) \land (B_j = C_k)\\
 \end{eqnarray*}
 
+\DERIVE
+\form{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor ((A_i = B_j) \land (B_j = C_k))} 
+\hint{\equiv} {Transitivity}
+\form{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k)} 
+\hint{\equiv} {TODO}
+\form{\neg\neg((A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k))} 
+\hint{\equiv} {TODO}
+\form{\neg((A_i \leqslant B_j) \land (B_j \leqslant C_k) \land (C_k \leqslant A_i) \land (A_i \neq B_j \neq C_k))} 
+\hint{\equiv} {TODO}
+\form{\neg((A_i = B_j = C_k) \land (A_i \neq B_j \neq C_k))} 
+\hint{\equiv} {TODO}
+\form{(A_i \neq B_j \neq C_k) \lor (A_i = B_j = C_k)} 
+\ENDDERIVE
+
+This predicate holds $\true$ for arbritary $A$, $B$ and $C$, iff  
+
+
+
 
 % Given 
 
