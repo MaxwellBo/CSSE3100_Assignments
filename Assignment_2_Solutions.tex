@@ -75,8 +75,10 @@ inv[i, j, k, r \backslash 0, 0, 0, 0]
 
 $\because$
 \begin{eqnarray*}
-guard & \triangleq & (i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len)
+guard(i, j, k) & \triangleq & (i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len)
 \end{eqnarray*}
+
+where $guard$ is a function that takes $i$, $j$, $k$ as implicit parameters.
 
 \begin{eqnarray*}
 inv \land \neg guard & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len)
@@ -151,15 +153,17 @@ and $\because$
 \form{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor ((A_i = B_j) \land (B_j = C_k))} 
 \hint{\equiv} {Transitivity}
 \form{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k)} 
-% \hint{\equiv} {TODO}
-% \form{\neg\neg((A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k))} 
-% \hint{\equiv} {TODO}
-% \form{\neg((A_i \leqslant B_j) \land (B_j \leqslant C_k) \land (C_k \leqslant A_i) \land (A_i \neq B_j \neq C_k))} 
-% \hint{\equiv} {TODO}
-% \form{\neg((A_i = B_j = C_k) \land (A_i \neq B_j \neq C_k))} 
-% \hint{\equiv} {TODO}
-% \form{(A_i \neq B_j \neq C_k) \lor (A_i = B_j = C_k)} 
 \ENDDERIVE
+
+\DERIVE
+\hint {\doesntrefsto} {Assignment: TODO}
+\form{TODO}
+
+\ENDDERIVE
+% \begin{eqnarray*}
+% (A_i > B_j)\, \land\, inv\, \land\, guard & \entails & inv\, \land \VARIANTEXP\\
+
+% \end{eqnarray*}
 
 
 
