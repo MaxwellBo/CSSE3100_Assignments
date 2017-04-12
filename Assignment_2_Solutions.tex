@@ -24,23 +24,22 @@
 
 \section{Part A}
 
-Given
+Let
 
 \begin{eqnarray*}
 pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})\\
         && \land~ sorted(A) ~\land~ sorted(B) ~\land~ sorted(C)
 \end{eqnarray*}
 
-and
-
 \begin{eqnarray*}
-post & \triangleq & \POST\\
+post(r) & \triangleq & \POST\\
 \end{eqnarray*}
 
+
 \DERIVE
-\form{\ENV:[pre, post]}
+\form{\ENV:[pre, post(r)]}
 \hint{\refsto} {Composition: middle predicate is \textit{inv}}
-\form{\ENV:[pre, inv]; \ENV:[inv, post]}
+\form{\ENV:[pre, inv]; \ENV:[inv, post(r)]}
 \ENDDERIVE
 
 where
@@ -53,7 +52,7 @@ inv & \triangleq & \INTERSECTION{r}{i}{j}{k}\\
 
 \DERIVE
 \hint{\refsto} {Assignment: $pre \entails inv[i, j, k, r\backslash 0, 0, 0, 0]$}
-\form{\ASSIGNMENT; \ENV:[inv, post]}
+\form{\ASSIGNMENT; \ENV:[inv, post(r)]}
 \ENDDERIVE
 
 $\because$
@@ -68,7 +67,7 @@ inv[i, j, k, r \backslash 0, 0, 0, 0]
 \end{eqnarray*}
 
 \DERIVE
-\hint{\refsto} {Strengthen post: $inv \land \neg guard \entails post$}
+\hint{\refsto} {Strengthen post: $inv \land \neg guard \entails post(r)$}
 \form{\ASSIGNMENT; \ENV:[inv, inv \land \neg guard]}
 \ENDDERIVE
  % TODO: We could have ANDs if we want a sensible guard, or we have a ORs to match what the program has}
@@ -83,7 +82,7 @@ guard & \triangleq & (i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len)
 inv \land \neg guard & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len)
 \end{eqnarray*}
 
-Assuming $(i = A.len\, \land\, j = B.len\, \land k = C.len)$ holds, we can show that still\\ \[inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) ~\entails~ post\]
+Assuming $(i = A.len\, \land\, j = B.len\, \land k = C.len)$ holds, we can show that still\\ \[inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) ~\entails~ post(r)\]
 
 $\because$
 
@@ -96,7 +95,7 @@ inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) & \equiv & inv[i, j,
 \end{eqnarray*}
 
 \begin{eqnarray*}
-(\POST) ~\land~ (r \in [0, D.len]) &~\entails~& post\\
+(\POST) ~\land~ (r \in [0, D.len]) &~\entails~& post(r)\\
                                    &~\entails~& \POST
 \end{eqnarray*}
 
