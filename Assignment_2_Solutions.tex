@@ -75,9 +75,13 @@ inv[i, j, k, r \backslash 0, 0, 0, 0]
 $\because$
 
 \begin{eqnarray*}
-&& inv \land \neg\GUARD\\
-& \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len)\\
-& \equiv & inv[i, j, k \backslash A.len, B.len, C.len]\\
+inv \land \neg\GUARD & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len)
+\end{eqnarray*}
+
+Assuming $(i = A.len\, \land\, j = B.len\, \land k = C.len)$ holds, we can show that still \\$inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) ~\entails~ post$.
+
+\begin{eqnarray*}
+inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) & \equiv & inv[i, j, k \backslash A.len, B.len, C.len]\\
 & \equiv & \INTERSECTION{r}{A.len}{B.len}{C.len}\\
     && \land~ \BOUNDED{r}{A.len}{B.len}{C.len}\\
 & \equiv & (\POST) ~\land~ (r \in [0, D.len] ~\land~ \true ~\land~ \true ~\land~ \true)\\
@@ -140,8 +144,6 @@ G_4(i, j, k) & \triangleq & (A_i = B_j) \land (B_j = C_k)\\
 \hint{\equiv} {TODO}
 \form{(A_i \neq B_j \neq C_k) \lor (A_i = B_j = C_k)} 
 \ENDDERIVE
-
-This predicate holds $\true$ for arbritary $A$, $B$ and $C$, iff  
 
 
 
