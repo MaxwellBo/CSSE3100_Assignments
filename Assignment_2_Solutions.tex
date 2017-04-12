@@ -7,7 +7,7 @@
 \usepackage{todonotes}
 
 \title{\bf Assignment 2: Verification}
-\author{Maxwell Bo  ~~ 43926871}
+\author{Maxwell Bo ~~ 43926871}
 
 \begin{document}
 \maketitle
@@ -18,8 +18,9 @@ Given
 
 \begin{eqnarray*}
 pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})\\
-    && \land sorted(A) ~\land~ sorted(B) ~\land~ sorted(C)
+    && \land~ sorted(A) ~\land~ sorted(B) ~\land~ sorted(C)
 \end{eqnarray*}
+% Should these be ors?
 
 and
 
@@ -76,14 +77,14 @@ inv \land \neg(i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len) \entail
 
 \DERIVE
 \hint{\refsto} {Repetition Rule}
-\ENDDERIVE
-
-\[i, j, k, r := 0, 0, 0, 0;\\
+\form{
 \begin{array}{l}
+i, j, k, r := 0, 0, 0, 0;\\
 \Do~ (i \neq A.len \,\lor\, j \neq B.len\,\lor\, k \neq C.len) \rightarrow\\
-    \t1 i, j, k, r, D[inv\, \land\, (i \neq A.len \,\lor\, j \neq B.len\,\lor\, k \neq C.len),~ inv\, \land\, (0 \leqslant V < V_0)]\\
+    \t1 i, j, k, r, D:[inv\, \land\, (i \neq A.len \,\lor\, j \neq B.len\,\lor\, k \neq C.len),~ inv\, \land\, (0 \leqslant V < V_0)]\\
 \Od\\
-\end{array}\]
+\end{array}}
+\ENDDERIVE
 
 % Given 
 

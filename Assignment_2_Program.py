@@ -15,7 +15,7 @@ i, j, k, r = 0, 0, 0, 0; print("\nKEY"); pretty("i", "j", "k", "r", D); print()
 
 VARIANT = min(len(A) - i, len(B) - j, len(C) - k)
 
-while ((i != len(A)) and (j != len(B)) and (k != len(C))):
+while ((i != len(A)) or (j != len(B)) or (k != len(C))):
 
     D_IS_INTERSECTION_OF_ALL_SEEN = (set(D[0:r]) == set(A[0:i]) & set(B[0:j]) & set(C[0:k]))
     IS_BOUNDED = i in range(len(A))\
