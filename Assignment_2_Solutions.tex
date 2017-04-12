@@ -156,7 +156,7 @@ and $\because$
 \ENDDERIVE
 
 \DERIVE
-\hint {\doesntrefsto} {Assignment: TODO}
+\hint {\doesntrefsto} {Assignment: $(A_i > B_j) \land inv \land guard \not\entails (inv \land \VARIANTEXP)[j \backslash j + 1]$}
 \form{
 \begin{array}{l}
 \ASSIGNMENT;\\
@@ -170,10 +170,12 @@ and $\because$
 \Od\\
 \end{array}}
 \ENDDERIVE
-% \begin{eqnarray*}
-% (A_i > B_j)\, \land\, inv\, \land\, guard & \entails & inv\, \land \VARIANTEXP\\
 
-% \end{eqnarray*}
+$\because$
+
+\begin{eqnarray*}
+(A_i > B_j) \land inv \land guard & \not\entails & (inv \land \VARIANTEXP)[j \backslash j + 1]\\
+\end{eqnarray*}
 
 
 
