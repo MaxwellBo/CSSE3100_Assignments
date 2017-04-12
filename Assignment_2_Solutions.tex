@@ -12,6 +12,7 @@
 \newcommand{\POST}{D_{[0, r)} = A\, \cap\, B\, \cap\, C}
 \newcommand{\INTERSECTION}[4]{D_{[0, {#1})} = A_{[0, {#2})}\, \cap\, B_{[0, {#3})}\, \cap\, C_{[0, {#4})}}
 \newcommand{\BOUNDED}[4]{{#1} \in [0, D.len] ~\land~ {#2} \in [0, A.len] ~\land~ {#3} \in [0, B.len] ~\land~ {#4} \in [0, C.len]}
+\newcommand{\BOUNDEDNONINCLUSIVE}[3]{{#1} \in [0, A.len) ~\land~ {#2} \in [0, B.len) ~\land~ {#3} \in [0, C.len)}
 \newcommand{\VARIANTEXP}{(0 \leqslant V < V_0)}
 \newcommand{\IFCASE}[1]{{#1} \rightarrow \ENV:[{#1} \land inv \land guard,\, inv \land \VARIANTEXP]}
 
@@ -155,27 +156,37 @@ and $\because$
 \form{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k)} 
 \ENDDERIVE
 
-\DERIVE
-\hint {\doesntrefsto} {Assignment: $(A_i > B_j) \land inv \land guard \not\entails (inv \land \VARIANTEXP)[j \backslash j + 1]$}
-\form{
-\begin{array}{l}
-\ASSIGNMENT;\\
-\Do~ \GUARD \rightarrow\\
-    \t1 \begin{array}{l}
-        \If~   (A_i > B_j) \rightarrow j := j + 1\\
-        \Choice~ \IFCASE{(B_j > C_k)}\\
-        \Choice~ \IFCASE{(C_k > A_i)}\\
-        \Fi~     \IFCASE{(A_i = B_j) \land (B_j = C_k)}\\
-    \end{array}\\
-\Od\\
-\end{array}}
-\ENDDERIVE
+Actions that have undefined behaviour, such as out-of-bounds array indexing, are inexpressible in the Guarded Query Language. Therefore, for any array-index pairing $A_i$, there is an implicit constraint that $i \in [0, A.len)$.\\
 
-$\because$
+Thus
 
 \begin{eqnarray*}
-(A_i > B_j) \land inv \land guard & \not\entails & (inv \land \VARIANTEXP)[j \backslash j + 1]\\
+(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k) & \equiv & ((A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k))\\
+    && \land (\BOUNDEDNONINCLUSIVE{i}{j}{k})
 \end{eqnarray*}
+
+% \DERIVE
+% \hint {\doesntrefsto} {Assignment: $(A_i > B_j) \land inv \land guard \not\entails (inv \land \VARIANTEXP)[j \backslash j + 1]$}
+% \form{
+% \begin{array}{l}
+% \ASSIGNMENT;\\
+% \Do~ \GUARD \rightarrow\\
+%     \t1 \begin{array}{l}
+%         \If~   (A_i > B_j) \rightarrow j := j + 1\\
+%         \Choice~ \IFCASE{(B_j > C_k)}\\
+%         \Choice~ \IFCASE{(C_k > A_i)}\\
+%         \Fi~     \IFCASE{(A_i = B_j) \land (B_j = C_k)}\\
+%     \end{array}\\
+% \Od\\
+% \end{array}}
+% \ENDDERIVE
+
+% $\because$
+
+% \begin{eqnarray*}
+% (A_i > B_j) \land inv \land guard & \not\entails & (inv \land \VARIANTEXP)[j \backslash j + 1]\\
+% &\notentails&  \
+% \end{eqnarray*}
 
 
 
