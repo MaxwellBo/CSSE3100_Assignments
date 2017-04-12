@@ -162,10 +162,12 @@ Actions that have undefined behaviour, such as out-of-bounds array indexing, are
 
 Thus
 
-\begin{eqnarray*}
-\GUARDUNION & \equiv & (\GUARDUNION)\\
-    && \land~ (\BOUNDEDNONINCLUSIVE{i}{j}{k})
-\end{eqnarray*}
+\DERIVE
+\hint {\equiv} {Implicit constraints}
+\form{(\GUARDUNION) ~\land~ (\BOUNDEDNONINCLUSIVE{i}{j}{k})}
+\ENDDERIVE
+
+With these new implicit constraints, we can conclude that
 
 \begin{eqnarray*}
 inv \land guard  & \not\entails & (\GUARDUNION)\\
