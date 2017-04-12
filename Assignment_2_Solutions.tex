@@ -6,6 +6,8 @@
 \usepackage{definitions}
 \usepackage{todonotes}
 
+\newcommand{\GUARD}{(i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len)}
+
 \title{\bf Assignment 2: Verification}
 \author{Maxwell Bo ~~ 43926871}
 
@@ -64,7 +66,7 @@ inv[i, j, k, r\backslash 0, 0, 0, 0]
 \end{eqnarray*}
 
 \DERIVE
-\hint{\refsto} {Strengthen post: $inv \land \neg(i \neq A.len \,\lor\, j \neq B.len\,\lor\, k \neq C.len) \entails post$}
+\hint{\refsto} {Strengthen post: $inv \land \neg\GUARD \entails post$}
 \form{i, j, k, r := 0, 0, 0, 0; i, j, k, r, D:[inv, inv \land \neg(i \neq A.len \,\lor\, j \neq B.len\,\lor\, k \neq C.len)]}
 \ENDDERIVE
  % TODO: We could have ANDs if we want a sensible guard, or we have a ORs to match what the program has}
@@ -73,7 +75,7 @@ inv[i, j, k, r\backslash 0, 0, 0, 0]
 $\because$
 
 \begin{eqnarray*}
-inv \land \neg(i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len) \entails post & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land C.len) \entails post\\
+inv \land \neg\GUARD \entails post & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) \entails post\\
 & \equiv & TODO
 \end{eqnarray*}
 % TODO: Does a \land b \entails a \land c \equiv b \entails c
@@ -83,8 +85,8 @@ inv \land \neg(i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len) \entail
 \form{
 \begin{array}{l}
 i, j, k, r := 0, 0, 0, 0;\\
-\Do~ (i \neq A.len \,\lor\, j \neq B.len\,\lor\, k \neq C.len) \rightarrow\\
-    \t1 i, j, k, r, D:[inv\, \land\, (i \neq A.len \,\lor\, j \neq B.len\,\lor\, k \neq C.len),~ inv\, \land\, (0 \leqslant V < V_0)]\\
+\Do~ \GUARD \rightarrow\\
+    \t1 i, j, k, r, D:[inv\, \land\, \GUARD,~ inv\, \land\, (0 \leqslant V < V_0)]\\
 \Od\\
 \end{array}}
 \ENDDERIVE
