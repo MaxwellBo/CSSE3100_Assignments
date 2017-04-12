@@ -13,6 +13,7 @@
 \newcommand{\INTERSECTION}[4]{D_{[0, {#1})} = A_{[0, {#2})}\, \cap\, B_{[0, {#3})}\, \cap\, C_{[0, {#4})}}
 \newcommand{\BOUNDED}[4]{{#1} \in [0, D.len] ~\land~ {#2} \in [0, A.len] ~\land~ {#3} \in [0, B.len] ~\land~ {#4} \in [0, C.len]}
 \newcommand{\VARIANTEXP}{(0 \leqslant V < V_0)}
+\newcommand{\IFCASE}[1]{{#1} \rightarrow \ENV:[{#1} \land inv \land guard,\, inv \land \VARIANTEXP]}
 
 
 \title{\bf Assignment 2: Verification}
@@ -105,7 +106,7 @@ inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) & \equiv & inv[i, j,
 \begin{array}{l}
 \ASSIGNMENT;\\
 \Do~ \GUARD \rightarrow\\
-    \t1 \ENV:[inv\, \land\, guard,~ inv\, \land\, (0 \leqslant V < V_0)]\\
+    \t1 \ENV:[inv\, \land\, guard,~ inv\, \land\, \VARIANTEXP]\\
 \Od\\
 \end{array}}
 \ENDDERIVE
@@ -125,10 +126,10 @@ V & \triangleq & (A.len - i) + (B.len - j) + (C.len - k)\\
 \ASSIGNMENT;\\
 \Do~ \GUARD \rightarrow\\
     \t1 \begin{array}{l}
-        \If~ (A_i > B_j) \rightarrow \ENV:[(A_i > B_j) \land inv \land guard, inv \land \VARIANTEXP] \\
-        \Choice~ (B_j > C_k) \rightarrow TODO\\
-        \Choice~ (C_k > A_i) \rightarrow TODO\\
-        \Fi~ ((A_i = B_j) \land (B_j = C_k)) \rightarrow TODO\\
+        \If~    \IFCASE{(A_i > B_j)}\\
+        \Choice~ \IFCASE{(B_j > C_k)}\\
+        \Choice~ \IFCASE{(C_k > A_i)}\\
+        \Fi~     \IFCASE{(A_i = B_j) \land (B_j = C_k)}\\
     \end{array}\\
 \Od\\
 \end{array}}
