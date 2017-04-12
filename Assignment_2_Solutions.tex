@@ -20,7 +20,7 @@ Given
 pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})\\
     && \land~ sorted(A) ~\land~ sorted(B) ~\land~ sorted(C)
 \end{eqnarray*}
-% Should these be ors?
+% TODO: Should these be ors?
 
 and
 
@@ -29,6 +29,7 @@ post & \triangleq & D = A\, \cap\, B\, \cap\, C\\
      && \land r \in [0, D.len] ~\land~ i \in [0, A.len] ~\land~ j \in [0, B.len] ~\land~ k \in [0, C.len]\\
      && \land (i = A.len\, \lor\, j = B.len\, \lor\, k = C.len)\\
 \end{eqnarray*}
+% TODO: Should this last line have ANDs because of the spec?}
 
 % we're free to let the index variable reach X.len, because the loops _should abort_ when it reaches that condition, because at least one of the sets has been exhaustively checked.
 
@@ -66,14 +67,16 @@ inv[i, j, k, r\backslash 0, 0, 0, 0]
 \hint{\refsto} {Strengthen post: $inv \land \neg(i \neq A.len \,\lor\, j \neq B.len\,\lor\, k \neq C.len) \entails post$}
 \form{i, j, k, r := 0, 0, 0, 0; i, j, k, r, D:[inv, inv \land \neg(i \neq A.len \,\lor\, j \neq B.len\,\lor\, k \neq C.len)]}
 \ENDDERIVE
+ % TODO: We could have ANDs if we want a sensible guard, or we have a ORs to match what the program has}
 % Here be dragons, don't forgot to flip both of the signs if we need to
 
 $\because$
 
 \begin{eqnarray*}
-inv \land \neg(i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len) \entails post & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land C.len) \entails post
+inv \land \neg(i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len) \entails post & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land C.len) \entails post\\
+& \equiv & TODO
 \end{eqnarray*}
-% TODO
+% TODO: Does a \land b \entails a \land c \equiv b \entails c
 
 \DERIVE
 \hint{\refsto} {Repetition Rule}
