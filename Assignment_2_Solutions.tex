@@ -9,6 +9,7 @@
 \newcommand{\GUARD}{(i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len)}
 \newcommand{\ASSIGNMENT}{i, j, k, r := 0, 0, 0, 0}
 \newcommand{\ENV}{i, j, k, r, D}
+\newcommand{\POST}{D_{[0, r)} = A\, \cap\, B\, \cap\, C}
 \newcommand{\INTERSECTION}[4]{D_{[0, {#1})} = A_{[0, {#2})}\, \cap\, B_{[0, {#3})}\, \cap\, C_{[0, {#4})}}
 \newcommand{\BOUNDED}[4]{{#1} \in [0, D.len] ~\land~ {#2} \in [0, A.len] ~\land~ {#3} \in [0, B.len] ~\land~ {#4} \in [0, C.len]}
 
@@ -31,7 +32,7 @@ pre & \triangleq & D.len \geqslant max(\{A.len,\, B.len,\, C.len\})\\
 and
 
 \begin{eqnarray*}
-post & \triangleq & D_{[0, r)} = A\, \cap\, B\, \cap\, C\\
+post & \triangleq & \POST\\
 \end{eqnarray*}
 
 \DERIVE
@@ -74,11 +75,18 @@ inv[i, j, k, r \backslash 0, 0, 0, 0]
 $\because$
 
 \begin{eqnarray*}
-&& inv \land \neg\GUARD \entails post\\
-& \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) \entails post\\
-& \equiv & inv[i, j, k \backslash A.len, B.len, C.len] \entails post\\
+&& inv \land \neg\GUARD\\
+& \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len)\\
+& \equiv & inv[i, j, k \backslash A.len, B.len, C.len]\\
 & \equiv & \INTERSECTION{r}{A.len}{B.len}{C.len}\\
-    && \land~ \BOUNDED{r}{A.len}{B.len}{C.len}
+    && \land~ \BOUNDED{r}{A.len}{B.len}{C.len}\\
+& \equiv & (\POST) ~\land~ (r \in [0, D.len] ~\land~ \true ~\land~ \true ~\land~ \true)\\
+& \equiv & (\POST) ~\land~ (r \in [0, D.len])\\
+\end{eqnarray*}
+
+\begin{eqnarray*}
+(\POST) ~\land~ (r \in [0, D.len]) &~\entails~& post\\
+                                   &~\entails~& \POST
 \end{eqnarray*}
 
 \DERIVE
