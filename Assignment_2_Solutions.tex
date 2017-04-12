@@ -155,7 +155,7 @@ $\therefore$
 \hint {\equiv} {Expansion of the guard definitions}
 \form{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor ((A_i = B_j) \land (B_j = C_k))} 
 \hint{\equiv} {Transitivity}
-\form{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k)} 
+\form{\GUARDUNION} 
 \ENDDERIVE
 
 Actions that have undefined behaviour, such as out-of-bounds array indexing, are inexpressible in the Guarded Query Language. Therefore, for any array-index pairing $A_i$, there is an implicit constraint that $i \in [0, A.len)$.\\
@@ -171,6 +171,22 @@ Thus
 inv \land guard  & \not\entails & (\GUARDUNION)\\
     && \land (\BOUNDEDNONINCLUSIVE{i}{j}{k})
 \end{eqnarray*}
+
+
+By counter-example, let $r, i, j, k = 0, A.len, 0, 0$.
+
+\begin{eqnarray*}
+inv[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \INTERSECTION{0}{A.len}{0}{0}\\
+    && \land \BOUNDED{0}{A.len}{0}{0}\\
+    & \equiv & \emptyset = (A\, \cap\, \emptyset\, \cap\, \emptyset) ~\land~ (\true ~\land~ \true ~\land~ \true ~\land~ \true)\\
+    & \equiv & \emptyset = \emptyset ~\land~ \true\\
+    & \equiv & \true
+\end{eqnarray*} 
+
+% Where, by counter-example, $r, i, j, k = 0, A.len, 0, 0$ satisfies both the index constraints of $inv$\footnote{$\BOUNDED{r}{i}{j}{k}$} and the $\Do$ guard\footnote{$\GUARD$}, but not that of the $\If$ guard union\footnote{$\BOUNDEDNONINCLUSIVE{i}{j}{k}$\\
+
+\textbf{The specification does not refine to the provided program.}
+
 
 
 % \DERIVE
