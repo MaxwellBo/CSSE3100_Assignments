@@ -74,9 +74,11 @@ inv[i, j, k, r \backslash 0, 0, 0, 0]
 $\because$
 
 \begin{eqnarray*}
-inv \land \neg\GUARD \entails post & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) \entails post\\
-   & \equiv & inv[i, j, k \backslash A.len, B.len, C.len] \entails post\\
-   & \equiv & TODO
+&& inv \land \neg\GUARD \entails post\\
+& \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) \entails post\\
+& \equiv & inv[i, j, k \backslash A.len, B.len, C.len] \entails post\\
+& \equiv & \INTERSECTION{r}{A.len}{B.len}{C.len}\\
+    && \land~ \BOUNDED{r}{A.len}{B.len}{C.len}
 \end{eqnarray*}
 
 \DERIVE
