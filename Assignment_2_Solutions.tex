@@ -15,6 +15,7 @@
 \newcommand{\BOUNDEDNONINCLUSIVE}[3]{{#1} \in [0, A.len) ~\land~ {#2} \in [0, B.len) ~\land~ {#3} \in [0, C.len)}
 \newcommand{\VARIANTEXP}{(0 \leqslant V < V_0)}
 \newcommand{\IFCASE}[1]{{#1} \rightarrow \ENV:[{#1} \land inv \land guard,\, inv \land \VARIANTEXP]}
+\newcommand{\GUARDUNION}{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k)}
 
 
 \title{\bf Assignment 2: Verification}
@@ -74,12 +75,13 @@ inv[i, j, k, r \backslash 0, 0, 0, 0]
  % TODO: We could have ANDs if we want a sensible guard, or we have a ORs to match what the program has}
 % Here be dragons, don't forgot to flip both of the signs if we need to
 
-$\because$
+where $guard$ is a function that takes $i$, $j$, $k$ as implicit parameters, s.t.
+
 \begin{eqnarray*}
 guard(i, j, k) & \triangleq & (i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len)
 \end{eqnarray*}
 
-where $guard$ is a function that takes $i$, $j$, $k$ as implicit parameters.
+$\therefore$
 
 \begin{eqnarray*}
 inv \land \neg guard & \equiv & inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len)
@@ -146,7 +148,7 @@ G_3(k, i) & \triangleq & C_k > A_i\\
 G_4(i, j, k) & \triangleq & (A_i = B_j) \land (B_j = C_k)\\
 \end{eqnarray*}
 
-$\because$
+$\therefore$
 
 \DERIVE
 \form{G_1(i, j) \lor G_2(j, k) \lor G_3(k, i) \lor G_4(i, j, k)}
@@ -161,9 +163,15 @@ Actions that have undefined behaviour, such as out-of-bounds array indexing, are
 Thus
 
 \begin{eqnarray*}
-(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k) & \equiv & ((A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k))\\
+\GUARDUNION & \equiv & (\GUARDUNION)\\
     && \land (\BOUNDEDNONINCLUSIVE{i}{j}{k})
 \end{eqnarray*}
+
+\begin{eqnarray*}
+inv \land guard  & \not\entails & (\GUARDUNION)\\
+    && \land (\BOUNDEDNONINCLUSIVE{i}{j}{k})
+\end{eqnarray*}
+
 
 % \DERIVE
 % \hint {\doesntrefsto} {Assignment: $(A_i > B_j) \land inv \land guard \not\entails (inv \land \VARIANTEXP)[j \backslash j + 1]$}
