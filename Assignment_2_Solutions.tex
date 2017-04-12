@@ -122,7 +122,7 @@ V & \triangleq & (A.len - i) + (B.len - j) + (C.len - k)\\
 
 
 \DERIVE
-\hint{\refsto} {Selection: $inv\, \land\, guard \entails (G_1(i, j) \lor G_2(j, k) \lor G_3(k, i) \lor G_4(i, j, k))$}
+\hint{\doesntrefsto} {Selection: $inv\, \land\, guard \not\entails (G_1(i, j) \lor G_2(j, k) \lor G_3(k, i) \lor G_4(i, j, k))$}
 \form{
 \begin{array}{l}
 \ASSIGNMENT;\\
@@ -146,7 +146,7 @@ G_3(k, i) & \triangleq & C_k > A_i\\
 G_4(i, j, k) & \triangleq & (A_i = B_j) \land (B_j = C_k)\\
 \end{eqnarray*}
 
-and $\because$
+$\because$
 
 \DERIVE
 \form{G_1(i, j) \lor G_2(j, k) \lor G_3(k, i) \lor G_4(i, j, k)}
