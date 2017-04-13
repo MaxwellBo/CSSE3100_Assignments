@@ -6,7 +6,7 @@
 \usepackage{definitions}
 \usepackage{todonotes}
 
-\newcommand{\GUARD}{(i \neq A.len\, \lor\, j \neq B.len\, \lor\, k \neq C.len)}
+\newcommand{\DOGUARD}[3]{({#1} \neq A.len\, \lor\, {#2} \neq B.len\, \lor\, {#3} \neq C.len)}
 \newcommand{\ASSIGNMENT}{i, j, k, r := 0, 0, 0, 0}
 \newcommand{\ENV}{i, j, k, r, D}
 \newcommand{\POST}{D_{[0, r)} = A\, \cap\, B\, \cap\, C}
@@ -15,7 +15,7 @@
 \newcommand{\BOUNDEDNONINCLUSIVE}[3]{{#1} \in [0, A.len) ~\land~ {#2} \in [0, B.len) ~\land~ {#3} \in [0, C.len)}
 \newcommand{\VARIANTEXP}{(0 \leqslant V < V_0)}
 \newcommand{\IFCASE}[1]{{#1} \rightarrow \ENV:[{#1} \land inv \land guard,\, inv \land \VARIANTEXP]}
-\newcommand{\GUARDUNION}{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k)}
+\newcommand{\IFGUARD}{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k)}
 \newcommand{\SUBSTITUTION}{[i, j, k, r \backslash 0, A.len, 0, 0]}
 
 
@@ -110,7 +110,7 @@ inv \land (i = A.len\, \land\, j = B.len\, \land k = C.len) & \equiv & inv[i, j,
 \form{
 \begin{array}{l}
 \ASSIGNMENT;\\
-\Do~ \GUARD \rightarrow\\
+\Do~ \DOGUARD{i}{j}{k} \rightarrow\\
     \t1 \ENV:[inv\, \land\, guard,~ inv\, \land\, \VARIANTEXP]\\
 \Od\\
 \end{array}}
@@ -129,7 +129,7 @@ V & \triangleq & (A.len - i) + (B.len - j) + (C.len - k)\\
 \form{
 \begin{array}{l}
 \ASSIGNMENT;\\
-\Do~ \GUARD \rightarrow\\
+\Do~ \DOGUARD{i}{j}{k} \rightarrow\\
     \t1 \begin{array}{l}
         \If~    \IFCASE{(A_i > B_j)}\\
         \Choice~ \IFCASE{(B_j > C_k)}\\
@@ -157,7 +157,7 @@ $\therefore$
 \hint {\equiv} {Expansion of the guard definitions}
 \form{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor ((A_i = B_j) \land (B_j = C_k))} 
 \hint{\equiv} {Transitivity}
-\form{\GUARDUNION} 
+\form{\IFGUARD} 
 \hint{\equiv} {Redefinition}
 \form{G_{union}(i, j, k)}
 \ENDDERIVE
@@ -168,13 +168,13 @@ Thus
 
 \DERIVE
 \hint {\equiv} {Implicit constraints}
-\form{(\GUARDUNION) ~\land~ (\BOUNDEDNONINCLUSIVE{i}{j}{k})}
+\form{(\IFGUARD) ~\land~ (\BOUNDEDNONINCLUSIVE{i}{j}{k})}
 \ENDDERIVE
 
 With these new implicit constraints, we can conclude that
 
 \begin{eqnarray*}
-inv \land guard  & \not\entails & (\GUARDUNION)\\
+inv \land guard  & \not\entails & (\IFGUARD)\\
     && \land~ (\BOUNDEDNONINCLUSIVE{i}{j}{k})
 \end{eqnarray*}
 
@@ -196,8 +196,8 @@ inv\SUBSTITUTION & \equiv & \INTERSECTION{0}{A.len}{0}{0}\\
 \end{eqnarray*} 
 
 \begin{eqnarray*}
-guard\SUBSTITUTION & \equiv & \GUARD\SUBSTITUTION\\
-    & \equiv & A.len \neq A.len\, \lor\, 0 \neq B.len\, \lor\, 0 \neq C.len\\
+guard\SUBSTITUTION & \equiv & \DOGUARD{i}{j}{k}\SUBSTITUTION\\
+    & \equiv & \DOGUARD{A.len}{0}{0}\\
     & \equiv & \false\, \lor\, \true\, \lor\, \true\\
     & \equiv & \true
 \end{eqnarray*} 
