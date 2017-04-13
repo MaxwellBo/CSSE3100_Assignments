@@ -146,6 +146,7 @@ G_1(i, j) & \triangleq & A_i > B_j\\
 G_2(j, k) & \triangleq & B_j > C_k\\
 G_3(k, i) & \triangleq & C_k > A_i\\
 G_4(i, j, k) & \triangleq & (A_i = B_j) \land (B_j = C_k)\\
+G_{union}(i, j, k) & \triangleq & (G_1(i, j) \lor G_2(j, k) \lor G_3(k, i) \lor G_4(i, j, k)\\
 \end{eqnarray*}
 
 $\therefore$
@@ -156,6 +157,8 @@ $\therefore$
 \form{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor ((A_i = B_j) \land (B_j = C_k))} 
 \hint{\equiv} {Transitivity}
 \form{\GUARDUNION} 
+\hint{\equiv} {Redefinition}
+\form{G_{union}(i, j, k)}
 \ENDDERIVE
 
 Actions that have undefined behaviour, such as out-of-bounds array indexing, are inexpressible in the Guarded Query Language. Therefore, for any array-index pairing $A_i$, there is an implicit constraint that $i \in [0, A.len)$.\\
@@ -174,6 +177,12 @@ inv \land guard  & \not\entails & (\GUARDUNION)\\
     && \land~ (\BOUNDEDNONINCLUSIVE{i}{j}{k})
 \end{eqnarray*}
 
+For convenience
+
+\begin{eqnarray*}
+implicit\_bounds(i, j, k) & \triangleq & \BOUNDEDNONINCLUSIVE{i}{j}{k}
+\end{eqnarray*}
+
 
 By counter-example, let $r, i, j, k = 0, A.len, 0, 0$, and choosing $A = \{0\}$, $B = \{1\}$, $C = \{1\}$, s.t. $A.len = 1$, $B.len = 1$ and $C.len = 1$.
 
@@ -188,8 +197,15 @@ inv[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \INTERSECTION{0}{A.len}{0}{
 \begin{eqnarray*}
 guard[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \GUARD[i, j, k, r \backslash 0, A.len, 0, 0]\\
     & \equiv & A.len \neq A.len\, \lor\, 0 \neq B.len\, \lor\, 0 \neq C.len\\
-    & \equiv & \false\, \lor
+    & \equiv & \false\, \lor\, \true\, \lor\, \true\\
+    & \equiv & \true
 \end{eqnarray*} 
+
+\begin{eqnarray*}
+&& (G_{union}(i, j, k) ~\land~ implicit\_bounds(i, j, k))[i, j, k, l \backslash, 0, A.len, 0, 0]\\
+& \equiv &\\
+&& G_{union}(i, j, k)[i, j, k, l \backslash, 0, A.len, 0, 0] ~\land~ implicit\_bounds(i, j, k)[i, j, k, l \backslash, 0, A.len, 0, 0]\\
+\end{eqnarray*}
 
 
 
