@@ -226,7 +226,8 @@ inv\SUBSTITUTION\, \land\, guard\SUBSTITUTION &\not\implies& \false\\
 \true &\not\implies& \false\\
 \end{eqnarray*}
 
-\textbf{The specification does not refine to the provided program.}
+\textbf{The specification does not refine to the provided program.}\\
 
+Instead of $\DOGUARD{i}{j}{k}$, the choice of $(i \neq A.len\, \land\, j \neq B.len\, \land\, k \neq C.len)$ prevents out-of-bounds array indexing in the guards of the $\If$ statement, and would be refinable by the specification.
 \end{document}
 
