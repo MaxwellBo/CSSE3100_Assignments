@@ -244,6 +244,8 @@ s.t.
 \begin{eqnarray*}
 (inv\, \land\, guard')\SUBSTITUTION &\implies& (G_{union}(i, j, k)\\
 && \land~ implicit\_constraints(i, j, k))\SUBSTITUTION\\
+inv\SUBSTITUTION\, \land\, guard'\SUBSTITUTION &\implies& \false\\
+\true\, \land\, \false &\implies& \false\\
 \false &\implies& \false
 \end{eqnarray*}
 
