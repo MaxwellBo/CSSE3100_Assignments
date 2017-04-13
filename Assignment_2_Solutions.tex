@@ -16,6 +16,7 @@
 \newcommand{\VARIANTEXP}{(0 \leqslant V < V_0)}
 \newcommand{\IFCASE}[1]{{#1} \rightarrow \ENV:[{#1} \land inv \land guard,\, inv \land \VARIANTEXP]}
 \newcommand{\GUARDUNION}{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k)}
+\newcommand{\SUBSTITUTION}{[i, j, k, r \backslash 0, A.len, 0, 0]}
 
 
 \title{\bf Assignment 2: Verification}
@@ -187,7 +188,7 @@ implicit\_constraints(i, j, k) & \triangleq & \BOUNDEDNONINCLUSIVE{i}{j}{k}
 By counter-example, let $r, i, j, k = 0, A.len, 0, 0$, and choosing $A = \{0\}$, $B = \{1\}$, $C = \{1\}$, s.t. $A.len = 1$, $B.len = 1$ and $C.len = 1$.
 
 \begin{eqnarray*}
-inv[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \INTERSECTION{0}{A.len}{0}{0}\\
+inv\SUBSTITUTION & \equiv & \INTERSECTION{0}{A.len}{0}{0}\\
     && \land \BOUNDED{0}{A.len}{0}{0}\\
     & \equiv & \emptyset = (A\, \cap\, \emptyset\, \cap\, \emptyset) ~\land~ (\true ~\land~ \true ~\land~ \true ~\land~ \true)\\
     & \equiv & \emptyset = \emptyset ~\land~ \true\\
@@ -195,14 +196,14 @@ inv[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \INTERSECTION{0}{A.len}{0}{
 \end{eqnarray*} 
 
 \begin{eqnarray*}
-guard[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \GUARD[i, j, k, r \backslash 0, A.len, 0, 0]\\
+guard\SUBSTITUTION & \equiv & \GUARD\SUBSTITUTION\\
     & \equiv & A.len \neq A.len\, \lor\, 0 \neq B.len\, \lor\, 0 \neq C.len\\
     & \equiv & \false\, \lor\, \true\, \lor\, \true\\
     & \equiv & \true
 \end{eqnarray*} 
 
 \begin{eqnarray*}
-&& (G_{union}(i, j, k) ~\land~ implicit\_constraints(i, j, k))[i, j, k, l \backslash, 0, A.len, 0, 0]\\
+&& (G_{union}(i, j, k) ~\land~ implicit\_constraints(i, j, k))\SUBSTITUTION\\
 & \equiv &\\
 && G_{union}(A.len, 0, 0) ~\land~ implicit\_constraints(A.len, 0, 0)\\
 & \equiv &\\
@@ -218,128 +219,14 @@ guard[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \GUARD[i, j, k, r \backsl
 $\therefore$
 
 \begin{eqnarray*}
-(inv\, \land\, guard)[i, j, k, r \backslash 0, A.len, 0, 0] &\not\implies& (G_{union}(i, j, k)\\
-&& \land~ implicit\_constraints(i, j, k))[i, j, k, r \backslash 0, A.len, 0, 0]\\
-inv[i, j, k, r \backslash 0, A.len, 0, 0]\, \land\, guard[i, j, k, r \backslash 0, A.len, 0, 0] &\not\implies& \false\\
+(inv\, \land\, guard)\SUBSTITUTION &\not\implies& (G_{union}(i, j, k)\\
+&& \land~ implicit\_constraints(i, j, k))\SUBSTITUTION\\
+inv\SUBSTITUTION\, \land\, guard\SUBSTITUTION &\not\implies& \false\\
 \true\, \land\, \true &\not\implies& \false\\
 \true &\not\implies& \false\\
 \end{eqnarray*}
 
 \textbf{The specification does not refine to the provided program.}
 
-
-
-% \DERIVE
-% \hint {\doesntrefsto} {Assignment: $(A_i > B_j) \land inv \land guard \not\entails (inv \land \VARIANTEXP)[j \backslash j + 1]$}
-% \form{
-% \begin{array}{l}
-% \ASSIGNMENT;\\
-% \Do~ \GUARD \rightarrow\\
-%     \t1 \begin{array}{l}
-%         \If~   (A_i > B_j) \rightarrow j := j + 1\\
-%         \Choice~ \IFCASE{(B_j > C_k)}\\
-%         \Choice~ \IFCASE{(C_k > A_i)}\\
-%         \Fi~     \IFCASE{(A_i = B_j) \land (B_j = C_k)}\\
-%     \end{array}\\
-% \Od\\
-% \end{array}}
-% \ENDDERIVE
-
-% $\because$
-
-% \begin{eqnarray*}
-% (A_i > B_j) \land inv \land guard & \not\entails & (inv \land \VARIANTEXP)[j \backslash j + 1]\\
-% &\notentails&  \
-% \end{eqnarray*}
-
-
-
-
-% Given 
-
-% \[max(A,l,h,i) ~\defs~ \all j \in [l,h) \cdot (A_j \leq A_i) \land (l \leq i < h)\]   % \[ and \] tell Latex we are entering and leaving math mode
-
-% suppose we wanted to show that the specification
-
-% \[i,j:[A.len > 0, max(A,0,A.len,i)]\]
-
-% is refined by
-
-% \[i,j:=0,1;\\  % \\ adds a line break
-% \begin{array}{l}
-% \Do~ j < A.len \rightarrow\\
-% \t1 \begin{array}{l}   % \t1 introduces a tab. The array environment allows us to write 
-% \If~ A_j > A_i \rightarrow i:=j\\
-% \Choice  A_j \leq A_i \rightarrow {\bf skip} \\
-% \Fi; \\
-% j:=j+1\\
-% \end{array}\\
-% \Od\\
-% \end{array}\]
-
-% Parts of the proof follow:
-
-% \DERIVE
-% \form{i,j:[A.len > 0, max(A,0,A.len,i)]}
-% \hint{\refsto} {Strengthen post: $inv \land max(A,0,A.len,i) \entails max(A,0,A.len,i)$}  % $ changes between text and math mode
-% \form{i,j:[A.len > 0, inv \land max(A,0,A.len,i)]}
-% \hint{\equiv}{$max(A,0,A.len,i)$ is equivalent to $j = A.len$ when $inv$ is true}
-% \form{i,j:[A.len > 0, inv \land j  = A.len]}
-% \hint {\refsto} {Composition: mid predicate is $inv$}
-% \form {i,j:[A.len > 0, inv]; i,j:[inv, inv \land j= A.len]}
-% \hint {\refsto} {Assignment: $A.len > 0 \entails inv[i,j\backslash 0,1]$}
-% \form { i,j:=0,1; i,j:[inv, inv \land j= A.len]}
-% \ENDDERIVE
-  
-% The proof of the final step above is:
-
-% \DERIVE
-% \form{inv[i,j\backslash 0,1]}
-% \hint{\equiv}{definition of $inv$}
-% \form{max(A,0,j,i)[i,j\backslash 0,1]}
-% \hint{\equiv}{apply substitution}
-% \form{max(A,0,1,0)}
-% \hint{\equiv}{since $A_0$ only element in $A_{[0,1)}$}
-% \form{\true}
-% \ENDDERIVE
-
-% \pagebreak % forces a page break here
-
-% Continuing the refinement:
-
-% \DERIVE
-% \form{i,j:[inv, inv \land j=A.len]}
-% \hint{\refsto}{Repetition: $A.len-j$ is variant}
-% \form{\begin{array}{l}   
-% \Do~ j\neq A.len \rightarrow\\   
-% \t1 i,j:[inv \land j< A.len, inv \land (0 \leq A.len-j < A.len-j_0)]\\  
-% \Od \\
-% \end{array}}
-% \ENDDERIVE
-
-% Here is another part of the proof involving other GCL notation:
-
-% \DERIVE
-% \form{i:[inv \land j< A.len, max(A,0,j+1,i)]}
-% \hint{\refsto}{Selection: $P \entails A_i > A_j \lor A_j \leq A_i$, for any $P$}
-% \form{\begin{array}{l}
-% \If~ A_j > A_i \rightarrow i:[A_j > A_i \land inv \land j< A.len, max(A,0,j+1,i)]\\
-% \Choice A_j \leq A_i \rightarrow i:[A_j \leq A_i \land inv \land j< A.len, max(A,0,j+1,i)]\\
-% \Fi\\
-% \end{array}}
-% \hint{\sqsubseteq}{Assignment: $A_j > A_i \land inv \land j< A.len \entails max(A,0,j+1,i)[i\backslash j]$}
-% \form{\begin{array}{l}
-% \If~  A_j > A_i \rightarrow i:=j\\
-% \Choice A_j \leq A_i \rightarrow i:[A_j \leq A_i \land inv \land j< A.len, max(A,0,j+1,i)]\\
-% \Fi\\
-% \end{array}}
-% \hint{\refsto}{Skip: $A_j \leq A_i \land inv \land j< A.len \entails  max(A,0,j+1,i)$}
-% \form{\begin{array}{l}
-% \If~ A_j > A_i \rightarrow i:=j\\
-% \Choice A_j \leq A_i \rightarrow {\Skip} \\
-% \Fi\
-% \end{array}}
-% \ENDDERIVE
-  
 \end{document}
 
