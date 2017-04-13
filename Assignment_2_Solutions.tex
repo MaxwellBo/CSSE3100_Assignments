@@ -175,7 +175,7 @@ inv \land guard  & \not\entails & (\GUARDUNION)\\
 \end{eqnarray*}
 
 
-By counter-example, let $r, i, j, k = 0, A.len, 0, 0$.
+By counter-example, let $r, i, j, k = 0, A.len, 0, 0$, and choosing $A = \{0\}$, $B = \{1\}$, $C = \{1\}$, s.t. $A.len = 1$, $B.len = 1$ and $C.len = 1$.
 
 \begin{eqnarray*}
 inv[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \INTERSECTION{0}{A.len}{0}{0}\\
@@ -184,6 +184,13 @@ inv[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \INTERSECTION{0}{A.len}{0}{
     & \equiv & \emptyset = \emptyset ~\land~ \true\\
     & \equiv & \true
 \end{eqnarray*} 
+
+\begin{eqnarray*}
+guard[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \GUARD[i, j, k, r \backslash 0, A.len, 0, 0]\\
+    & \equiv & A.len \neq A.len\, \lor\, 0 \neq B.len\, \lor\, 0 \neq C.len\\
+    & \equiv & \false\, \lor
+\end{eqnarray*} 
+
 
 
 
