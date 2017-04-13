@@ -228,7 +228,7 @@ inv\SUBSTITUTION\, \land\, guard\SUBSTITUTION &\not\implies& \false\\
 
 \textbf{The specification does not refine to the provided program.}\\
 
-Instead of $\DOGUARD{i}{j}{k}$ as the $\Do$ guard, the choice of $(i \neq A.len\, \land\, j \neq B.len\, \land\, k \neq C.len)$ prevents out-of-bounds array indexing in the guards of the $\If$ statement, and would could be refined to by the specification. 
+Instead of $\DOGUARD{i}{j}{k}$ as the $\Do$ guard, the choice of\\ $(i \neq A.len\, \land\, j \neq B.len\, \land\, k \neq C.len)$ prevents out-of-bounds array indexing in the guards of the $\If$ statement, and could be refined to by the specification. 
 
 We can quickly show that this new guard, $guard'$, doesn't fall to the counter-example we used before.
 
