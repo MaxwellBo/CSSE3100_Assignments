@@ -180,7 +180,7 @@ inv \land guard  & \not\entails & (\GUARDUNION)\\
 For convenience
 
 \begin{eqnarray*}
-implicit\_bounds(i, j, k) & \triangleq & \BOUNDEDNONINCLUSIVE{i}{j}{k}
+implicit\_constraints(i, j, k) & \triangleq & \BOUNDEDNONINCLUSIVE{i}{j}{k}
 \end{eqnarray*}
 
 
@@ -202,15 +202,28 @@ guard[i, j, k, r \backslash 0, A.len, 0, 0] & \equiv & \GUARD[i, j, k, r \backsl
 \end{eqnarray*} 
 
 \begin{eqnarray*}
-&& (G_{union}(i, j, k) ~\land~ implicit\_bounds(i, j, k))[i, j, k, l \backslash, 0, A.len, 0, 0]\\
+&& (G_{union}(i, j, k) ~\land~ implicit\_constraints(i, j, k))[i, j, k, l \backslash, 0, A.len, 0, 0]\\
 & \equiv &\\
-&& G_{union}(i, j, k)[i, j, k, l \backslash, 0, A.len, 0, 0] ~\land~ implicit\_bounds(i, j, k)[i, j, k, l \backslash, 0, A.len, 0, 0]\\
+&& G_{union}(A.len, 0, 0) ~\land~ implicit\_constraints(A.len, 0, 0)\\
+& \equiv &\\
+&& G_{union}(A.len, 0, 0) ~\land~ (\BOUNDEDNONINCLUSIVE{A.len}{0}{0})\\
+& \equiv &\\
+&& G_{union}(A.len, 0, 0) ~\land~ (\false ~\land~ \true ~\land~ \true)\\
+& \equiv &\\
+&& G_{union}(A.len, 0, 0) ~\land~ \false\\
+& \equiv &\\
+&& \false
 \end{eqnarray*}
 
+$\therefore$
 
-
-
-% Where, by counter-example, $r, i, j, k = 0, A.len, 0, 0$ satisfies both the index constraints of $inv$\footnote{$\BOUNDED{r}{i}{j}{k}$} and the $\Do$ guard\footnote{$\GUARD$}, but not that of the $\If$ guard union\footnote{$\BOUNDEDNONINCLUSIVE{i}{j}{k}$\\
+\begin{eqnarray*}
+(inv\, \land\, guard)[i, j, k, r \backslash 0, A.len, 0, 0] &\not\implies& (G_{union}(i, j, k)\\
+&& \land~ implicit\_constraints(i, j, k))[i, j, k, r \backslash 0, A.len, 0, 0]\\
+inv[i, j, k, r \backslash 0, A.len, 0, 0]\, \land\, guard[i, j, k, r \backslash 0, A.len, 0, 0] &\not\implies& \false\\
+\true\, \land\, \true &\not\implies& \false\\
+\true &\not\implies& \false\\
+\end{eqnarray*}
 
 \textbf{The specification does not refine to the provided program.}
 
