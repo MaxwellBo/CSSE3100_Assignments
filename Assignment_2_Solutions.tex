@@ -16,7 +16,7 @@
 \newcommand{\VARIANTEXP}{(0 \leqslant V < V_0)}
 \newcommand{\IFCASE}[1]{{#1} \rightarrow \ENV:[{#1} \land inv \land guard,\, inv \land \VARIANTEXP]}
 \newcommand{\IFGUARD}{(A_i > B_j) \lor (B_j > C_k) \lor (C_k > A_i) \lor (A_i = B_j = C_k)}
-\newcommand{\SUBSTITUTION}{[i, j, k, r \backslash 0, A.len, 0, 0]}
+\newcommand{\SUBSTITUTION}{[i, j, k, r \backslash A.len, 0, 0, 0]}
 
 
 \title{\bf Assignment 2: Verification}
@@ -185,7 +185,7 @@ implicit\_constraints(i, j, k) & \triangleq & \BOUNDEDNONINCLUSIVE{i}{j}{k}
 \end{eqnarray*}
 
 
-By counter-example, let $r, i, j, k = 0, A.len, 0, 0$, and choosing $A = \{0\}$, $B = \{1\}$, $C = \{1\}$, s.t. $A.len = 1$, $B.len = 1$ and $C.len = 1$.
+By counter-example, let $i, j, k, r = A.len, 0, 0, 0$, and choosing $A = \{0\}$, $B = \{1\}$, $C = \{1\}$, s.t. $A.len = 1$, $B.len = 1$ and $C.len = 1$.
 
 \begin{eqnarray*}
 inv\SUBSTITUTION & \equiv & \INTERSECTION{0}{A.len}{0}{0}\\
@@ -228,6 +228,23 @@ inv\SUBSTITUTION\, \land\, guard\SUBSTITUTION &\not\implies& \false\\
 
 \textbf{The specification does not refine to the provided program.}\\
 
-Instead of $\DOGUARD{i}{j}{k}$, the choice of $(i \neq A.len\, \land\, j \neq B.len\, \land\, k \neq C.len)$ prevents out-of-bounds array indexing in the guards of the $\If$ statement, and would be refinable by the specification.
-\end{document}
+Instead of $\DOGUARD{i}{j}{k}$ as the $\Do$ guard, the choice of $(i \neq A.len\, \land\, j \neq B.len\, \land\, k \neq C.len)$ prevents out-of-bounds array indexing in the guards of the $\If$ statement, and would could be refined to by the specification. 
 
+We can quickly show that this new guard, $guard'$, doesn't fall to the counter-example we used before.
+
+\begin{eqnarray*}
+guard'\SUBSTITUTION & \equiv & (i \neq A.len\, \land\, j \neq B.len\, \land\, k \neq C.len)\SUBSTITUTION\\
+    & \equiv & (A.len \neq A.len\, \land\, 0 \neq B.len\, \land\, 0 \neq C.len)\\
+    & \equiv & \false\, \land\, \true\, \land\, \true\\
+    & \equiv & \false
+\end{eqnarray*} 
+
+s.t.
+
+\begin{eqnarray*}
+(inv\, \land\, guard')\SUBSTITUTION &\implies& (G_{union}(i, j, k)\\
+&& \land~ implicit\_constraints(i, j, k))\SUBSTITUTION\\
+\false &\implies& \false
+\end{eqnarray*}
+
+\end{document}
