@@ -6,11 +6,80 @@
 \usepackage{definitions}
 \usepackage{todonotes}
 
+\newcommand{\PRE}{lrun(A, n, n + 1)}
+\newcommand{\POST}{mrun(A, n_0, m)}
+\newcommand{\INV}{lrun(A, n_0, m)}
+\newcommand{\ENV}{n, m}
+\newcommand{\ASSIGNMENT}{m := n + 1}
+\newcommand{\GUARD}{m < A.len \land A_{n_{0}} \neq A_m}
+\newcommand{\MRUN}[3]{lrun({#1}, {#2}, {#3}) \land ({#3} < A.len \implies A_i \neq A_j)}
+
+
 \title{\bf Assignment 3: Derivation}
 \author{Maxwell Bo ~~ 43926871}
 
 \begin{document}
 \maketitle
+
+% \DERIVE
+% \form{inv[i,j\backslash 0,1]}
+% \hint{\equiv}{definition of $inv$}
+% \form{max(A,0,j,i)[i,j\backslash 0,1]}
+% \hint{\equiv}{apply substitution}
+% \form{max(A,0,1,0)}
+% \hint{\equiv}{since $A_0$ only element in $A_{[0,1)}$}
+% \form{\true}
+% \ENDDERIVE
+
+
+\begin{enumerate}
+	\item 
+	\begin{enumerate}
+		\item $n$ is a \textbf{value} parameter. $m$ is a \textbf{result} parameter.
+		\item $inv ~\triangleq~ \INV$
+		\item 
+
+Let
+
+\DERIVE
+\form{\ENV : [\PRE,\, \POST]}
+\hint{\refsto} {Composition: middle predicate is $inv$}
+\form{\ENV : [\PRE, \INV];\ \ENV : [\INV,\, \POST]}
+\hint{\refsto} {Assignment: $\PRE \entails \INV[m \backslash n + 1]$}
+\form{\ASSIGNMENT;\ \ENV: [\INV,\, \POST]}
+\ENDDERIVE
+
+$\because$
+
+\begin{eqnarray*}
+\INV[m \backslash n + 1] & \equiv & lrun(A, n_0, n + 1)
+\end{eqnarray*}
+
+
+\DERIVE
+\hint{\refsto} {Strengthen post: $\INV \land \neg (\GUARD) ~\entails~ \POST$}
+\form{\ASSIGNMENT;\ \ENV: [\INV,\, \INV \land \neg (\GUARD)]}
+\ENDDERIVE
+
+$\because$
+\begin{eqnarray*}
+\INV[m \backslash n + 1 & \equiv & lrun(A, n_0, n + 1)
+\end{eqnarray*}
+
+
+\begin{eqnarray*}
+&& \INV \land \neg (\GUARD) ~\entails~ \POST\\
+ & \equiv & \INV \land \neg (\GUARD) ~\entails~ \MRUN{A}{n_0}{m}\\
+\end{eqnarray*}
+
+
+
+
+
+
+	\end{enumerate}
+
+\end{enumerate}
 
 
 \end{document}
