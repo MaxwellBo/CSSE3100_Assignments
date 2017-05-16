@@ -13,6 +13,7 @@
 \newcommand{\ASSIGNMENT}{m := n + 1}
 \newcommand{\GUARD}{m < A.len \land A_{n_{0}} \neq A_m}
 \newcommand{\MRUN}[3]{lrun({#1}, {#2}, {#3}) \land ({#3} < {#1}.len \implies {#1}_{#2} \neq {#1}_{#3})}
+\newcommand{\IMPLIESEXPANSION}[2]{\neg ({#1}) \lor ({#2})}
 
 
 \title{\bf Assignment 3: Derivation}
@@ -70,6 +71,7 @@ $\because$
 \begin{eqnarray*}
 && \INV \land \neg (\GUARD) ~\entails~ \POST\\
  & \equiv & \INV \land \neg (\GUARD) ~\entails~ \MRUN{A}{n_0}{m}\\
+ & \equiv & \INV \land (\neg (m < M.len) \lor \neg (A_{n_{0}} \neq A_m)) ~ \entails~ lrun(A, n_0, m) \land (\IMPLIESEXPANSION{m < A.len}{A_{n_{0}} \neq A_m})\\
 \end{eqnarray*}
 
 
