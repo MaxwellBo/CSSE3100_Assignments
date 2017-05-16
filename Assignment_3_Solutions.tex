@@ -44,10 +44,13 @@ Let
 
 \begin{eqnarray*}
 pre(A, n) & \triangleq & \PRE\\
+inv(A, n, m) & \triangleq & \INV\\
 post(A, n, m) & \triangleq & \POST
 \end{eqnarray*}
 
-by the specification of the procedure, where $inv$, $pre$ and $post$ implicitly capture parameters $(A, n, m)$ from the frame. 
+by 1(b), and the specification of the procedure, where $inv$, $pre$ and $post$ implicitly capture parameters $(A, n, m)$ from the frame. 
+
+s.t.
 
 \DERIVE
 \form{\ENV : [pre,\, post]}
@@ -64,7 +67,7 @@ inv[m \backslash n + 1] & \equiv & \INV[m \backslash n + 1]\\
 & \equiv & lrun(A, n_0, n + 1)
 \end{eqnarray*}
 
-and 
+$\therefore$ 
 
 \begin{eqnarray*}
 \PRE & \entails & lrun(A, n_0, n + 1)
@@ -77,6 +80,8 @@ Let
 \begin{eqnarray*}
 guard & \triangleq & \GUARD
 \end{eqnarray*}
+
+s.t.
 
 \DERIVE
 \hint{\refsto} {Strengthen post: $inv \land \neg guard ~\entails~ post$}
