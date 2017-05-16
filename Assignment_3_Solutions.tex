@@ -42,34 +42,54 @@
 
 Let
 
+\begin{eqnarray*}
+pre(A, n) & \triangleq & \PRE\\
+post(A, n, m) & \triangleq & \POST
+\end{eqnarray*}
+
+by the specification of the procedure, where $inv$, $pre$ and $post$ implicitly capture parameters $(A, n, m)$ from the frame. 
+
 \DERIVE
-\form{\ENV : [\PRE,\, \POST]}
+\form{\ENV : [pre,\, post]}
 \hint{\refsto} {Composition: middle predicate is $inv$}
-\form{\ENV : [\PRE, \INV];\ \ENV : [\INV,\, \POST]}
-\hint{\refsto} {Assignment: $\PRE \entails \INV[m \backslash n + 1]$}
-\form{\ASSIGNMENT;\ \ENV: [\INV,\, \POST]}
+\form{\ENV : [pre,\, inv];\ \ENV : [inv,\, post]}
+\hint{\refsto} {Assignment: $pre \entails inv[m \backslash n + 1]$}
+\form{\ASSIGNMENT;\ \ENV: [inv,\, post]}
 \ENDDERIVE
 
 $\because$
 
 \begin{eqnarray*}
-\INV[m \backslash n + 1] & \equiv & lrun(A, n_0, n + 1)
+inv[m \backslash n + 1] & \equiv & \INV[m \backslash n + 1]\\
+& \equiv & lrun(A, n_0, n + 1)
 \end{eqnarray*}
 
+and 
+
+\begin{eqnarray*}
+\PRE & \entails & lrun(A, n_0, n + 1)
+\end{eqnarray*}
+
+
+Let
+
+
+\begin{eqnarray*}
+guard & \triangleq & \GUARD
+\end{eqnarray*}
 
 \DERIVE
-\hint{\refsto} {Strengthen post: $\INV \land \neg (\GUARD) ~\entails~ \POST$}
-\form{\ASSIGNMENT;\ \ENV: [\INV,\, \INV \land \neg (\GUARD)]}
+\hint{\refsto} {Strengthen post: $inv \land \neg guard ~\entails~ post$}
+\form{\ASSIGNMENT;\ \ENV: [inv,\, inv \land \neg guard]}
 \ENDDERIVE
 
 $\because$
-\begin{eqnarray*}
-\INV[m \backslash n + 1 & \equiv & lrun(A, n_0, n + 1)
-\end{eqnarray*}
+
 
 
 \begin{eqnarray*}
-&& \INV \land \neg (\GUARD) ~\entails~ \POST\\
+&& inv \land \neg guard ~\entails~ post\\
+& \equiv & \INV \land \neg (\GUARD) ~\entails~ \POST\\
  & \equiv & \INV \land \neg (\GUARD) ~\entails~ \MRUN{A}{n_0}{m}\\
  & \equiv & \INV \land (\neg (m < M.len) \lor \neg (A_{n_{0}} \neq A_m)) ~ \entails~ lrun(A, n_0, m) \land (\IMPLIESEXPANSION{m < A.len}{A_{n_{0}} \neq A_m})\\
 \end{eqnarray*}
