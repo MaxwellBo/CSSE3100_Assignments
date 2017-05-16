@@ -12,7 +12,7 @@
 \newcommand{\ENV}{n, m}
 \newcommand{\ASSIGNMENT}{m := n + 1}
 \newcommand{\GUARD}{m < A.len \land A_{n_{0}} \neq A_m}
-\newcommand{\MRUN}[3]{lrun({#1}, {#2}, {#3}) \land ({#3} < A.len \implies A_i \neq A_j)}
+\newcommand{\MRUN}[3]{lrun({#1}, {#2}, {#3}) \land ({#3} < {#1}.len \implies {#1}_{#2} \neq {#1}_{#3})}
 
 
 \title{\bf Assignment 3: Derivation}
