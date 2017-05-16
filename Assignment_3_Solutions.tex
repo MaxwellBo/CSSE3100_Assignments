@@ -127,6 +127,19 @@ where
 V & \triangleq & A.len ~-~ m
 \end{eqnarray*}
 
+\DERIVE
+\hint{\refsto} {Assignment: $inv \land \neg guard ~\entails~ (inv \land \VARIANTEXP)[m \backslash m + 1]$}
+\form{
+\begin{array}{l}
+\ASSIGNMENT;\\
+\Do~ \GUARD \rightarrow\\
+    \t1 m := m + 1\\
+\Od\\
+\end{array}}
+\ENDDERIVE
+
+
+
 	\end{enumerate}
 
 \end{enumerate}
