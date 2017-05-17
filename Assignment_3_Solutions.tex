@@ -149,8 +149,8 @@ V & \triangleq & A.\LEN ~-~ m
 $\because$
 
 \begin{eqnarray*}
-(inv \land \VARIANTEXP)[m \backslash m + 1] & \equiv & (\INV \land (0 \leqslant (A.\LEN - m) < (???)))[m \backslash m + 1]\\
- & \equiv & lrun(A, n_0, m + 1) \land (0 \leqslant (A.\LEN - (m + 1)) < (???))\\
+(inv \land \VARIANTEXP)[m \backslash m + 1] & \equiv & (\INV \land (0 \leqslant (A.\LEN - m) < (A.\LEN - m_0)))[m, m_0 \backslash m + 1, m]\\
+ & \equiv & lrun(A, n_0, m + 1) \land (0 \leqslant (A.\LEN - (m + 1)) < (A.\LEN - m))\\
 \end{eqnarray*}
 
 TODO
@@ -176,11 +176,11 @@ by 2. $pre$ and $post$ implicitly capture variables $(A, \ell, h)$ as parameters
 where
 
 \begin{eqnarray*}
-inv & \triangleq & \INVP
+inv(???) & \triangleq & \INVP
 \end{eqnarray*}
 
 
-where $inv$ implicitly captures varibles $(\mbox{TODO}$ as parameters from the frame.
+where $inv$ implicitly captures varibles $(\mbox{TODO})$ as parameters from the frame.
 
 \end{enumerate}
 
