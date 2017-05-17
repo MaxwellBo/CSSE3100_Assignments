@@ -23,7 +23,7 @@
 \newcommand{\PREP}{A.\LEN > 0}
 \newcommand{\POSTP}{mrun(A, \ell, h) \land (\forall p, q \,\cdot\, mrun(A, p, q) \Rightarrow (h - \ell) \leqslant (q - p))}
 \newcommand{\ENVP}{\ell, h}
-\newcommand{\INVP}{\mbox{TODO}}
+\newcommand{\INVP}{mrun(A, \ell, h)}
 
 
 
@@ -48,19 +48,20 @@
 	\item 
 	\begin{enumerate}
 		\item $n$ is a \textbf{value} parameter. $m$ is a \textbf{result} parameter.
-		\item $inv ~\triangleq~ \INV$
+		\item Our post-condition, $\POST$, expands to $\MRUN{A}{n_0}{m}$. This satisfies the form $Q \triangleq Q_1 \land Q_2$. $Q_1$ was chosen as the invariant. Thus,
+
+
+		\begin{eqnarray*}
+		inv & \triangleq & \INV
+		\end{eqnarray*}
 		\item 
 
 Let
 
 \begin{eqnarray*}
-pre(A, n) & \triangleq & \PRE\\
-inv(A, n, m) & \triangleq & \INV\\
-post(A, n, m) & \triangleq & \POST
+pre & \triangleq & \PRE\\
+post & \triangleq & \POST
 \end{eqnarray*}
-
-by 1.(b), and the specification of the procedure. $inv$, $pre$ and $post$ implicitly capture variables $(A, n, m)$ as parameters from the frame, for syntactic convience.
-
 
 s.t.
 
@@ -153,18 +154,16 @@ $\because$
  & \equiv & lrun(A, n_0, m + 1) \land (0 \leqslant (A.\LEN - (m + 1)) < (A.\LEN - m))\\
 \end{eqnarray*}
 
-TODO
+$\therefore$
 
 	\end{enumerate}
 
 \item
 
 \begin{eqnarray*}
-pre(A) & \triangleq & \PREP\\
-post(A, \ell, h) & \triangleq & \POSTP
+pre & \triangleq & \PREP\\
+post & \triangleq & \POSTP
 \end{eqnarray*}
-
-by 2. $pre$ and $post$ implicitly capture variables $(A, \ell, h)$ as parameters from the frame.
 
 
 \DERIVE
@@ -176,11 +175,18 @@ by 2. $pre$ and $post$ implicitly capture variables $(A, \ell, h)$ as parameters
 where
 
 \begin{eqnarray*}
-inv(???) & \triangleq & \INVP
+inv & \triangleq & \INVP
 \end{eqnarray*}
 
-
-where $inv$ implicitly captures varibles $(\mbox{TODO})$ as parameters from the frame.
+\DERIVE
+\form{
+\begin{array}{l}
+\ell := 0;\\
+\Do~ \GUARD \rightarrow\\
+    \t1 m := m + 1\\
+\Od\\
+\end{array}}
+\ENDDERIVE
 
 \end{enumerate}
 
