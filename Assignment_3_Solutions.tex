@@ -51,7 +51,7 @@
 	\item 
 	\begin{enumerate}
 		\item $n$ is a \textbf{value} parameter. $m$ is a \textbf{result} parameter.
-		\item Our post-condition, $\POST$, expands to $\MRUN{A}{n_0}{m}$. This satisfies the form $Q_1 \land Q_2$. $Q_1$ was chosen as the invariant. Thus,
+		\item Our post-condition, $\POST$, expands to $\MRUN{A}{n_0}{m}$. This satisfies the form $Q_1 \land Q_2$. $Q_1$ was chosen as the invariant. Thus
 
 
 		\begin{eqnarray*}
@@ -170,7 +170,7 @@ Furthermore,
 m < A.\LEN & \entails & 0 \leqslant (A.\LEN - (m + 1)) < (A.\LEN - m)
 \end{eqnarray*}
 
-is trivially $\true$.\\
+is trivially $true$.\\
 
 \begin{eqnarray*}
 \INV & \entails & lrun(A, n_0, m + 1)
@@ -212,7 +212,7 @@ where
 inv & \triangleq & \INVP
 \end{eqnarray*}
 
-This invariant was chosen as the postcondition refers to a constant $A$, which can be written $A_{[0, A.\LEN)}$, which is of the form $A^B$, where $B$ is $A.\LEN$. We replace $A.\LEN$ with a program variable $i$, to create the invariant defined above. We can further derive the negation of our guard to be $i = A.\LEN$, such that the guard is $\GUARDP$.
+This invariant was chosen as the postcondition refers to a constant $A$, which can be written $A_{[0, A.\LEN)}$, which is of the form $A^B$, where $B$ is $A.\LEN$. We replace $A.\LEN$ with a program variable $i$, to create the invariant defined above. We can further derive the negation of our guard to be $(i = A.\LEN)$, such that the guard is $\GUARDP$.
 
 \DERIVE
 \hint{\refsto} {Assignment: $pre \entails inv[i, \ell, h \backslash 1, 0, 1] $}
@@ -231,9 +231,9 @@ $\therefore$
 \PREP & \entails & \POSTP{A_{[0, 1)}}{0}{1} 
 \end{eqnarray*}
 
-The first conjunct is intuitively $\true$, as the maximal run of an array of $\LEN = 1$ is itself.
+The first conjunct is intuitively $true$, as the maximal run of an array of $\LEN = 1$ is itself.
 
-The \textbf{LHS} of the implication in the second conjunct is $true$ only when $p = 0$ and $q = 1$. The \textbf{RHS} is then $(1 - 0) \leqslant (1 - 0)$. Thus, the implication is $\true$ for these values of $p$ and $q$. All other values of $p$ and $q$ cause the implication to be $\true$. Thus, the second conjunct is $\true$. Thus, the entailment holds as
+The \textbf{LHS} of the implication in the second conjunct is $true$ only when $p = 0$ and $q = 1$. The \textbf{RHS} is then $(1 - 0) \leqslant (1 - 0)$. Thus, the implication is $true$ for these values of $p$ and $q$. All other values of $p$ and $q$ cause the implication to be $true$. Thus, the second conjunct is $true$. Thus, the entailment holds as
 
 \begin{eqnarray*}
 \PREP & \entails & \true \land \true 
