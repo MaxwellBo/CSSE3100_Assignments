@@ -23,6 +23,7 @@
 \newcommand{\PREP}{A.\LEN > 0}
 \newcommand{\POSTP}{mrun(A, \ell, h) \land (\forall p, q \,\cdot\, mrun(A, p, q) \Rightarrow (h - \ell) \leqslant (q - p))}
 \newcommand{\ENVP}{\ell, h}
+\newcommand{\INVP}{\mbox{TODO}}
 
 
 
@@ -58,7 +59,7 @@ inv(A, n, m) & \triangleq & \INV\\
 post(A, n, m) & \triangleq & \POST
 \end{eqnarray*}
 
-by 1(b), and the specification of the procedure. $inv$, $pre$ and $post$ implicitly capture variables $(A, n, m)$ as parameters from the frame, for syntactic convience.
+by 1.(b), and the specification of the procedure. $inv$, $pre$ and $post$ implicitly capture variables $(A, n, m)$ as parameters from the frame, for syntactic convience.
 
 
 s.t.
@@ -158,9 +159,28 @@ TODO
 
 \item
 
+\begin{eqnarray*}
+pre(A) & \triangleq & \PREP\\
+post(A, \ell, h) & \triangleq & \POSTP
+\end{eqnarray*}
+
+by 2. $pre$ and $post$ implicitly capture variables $(A, \ell, h)$ as parameters from the frame.
+
+
 \DERIVE
-\form{\ENVP : [\PREP,\, \POSTP]}
+\form{\ENVP : [pre,\, post]}
+\hint{\refsto} {Composition: middle predicate is $inv$}
+\form{\ENVP : [pre,\, inv];\ \ENVP : [inv,\, post]}
 \ENDDERIVE
+
+where
+
+\begin{eqnarray*}
+inv & \triangleq & \INVP
+\end{eqnarray*}
+
+
+where $inv$ implicitly captures varibles $(\mbox{TODO}$ as parameters from the frame.
 
 \end{enumerate}
 
