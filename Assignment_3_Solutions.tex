@@ -138,6 +138,12 @@ V & \triangleq & A.len ~-~ m
 \end{array}}
 \ENDDERIVE
 
+$\because$
+
+\begin{eqnarray*}
+(inv \land \VARIANTEXP)[m \backslash m + 1] & \equiv & (\INV \land (0 \leqslant (A.len - m) < (???)))[m \backslash m + 1]\\
+ & \equiv & lrun(A, n_0, m + 1) \land (0 \leqslant (A.len - (m + 1)) < (???))\\
+\end{eqnarray*}
 
 
 	\end{enumerate}
