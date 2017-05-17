@@ -22,9 +22,9 @@
 
 
 \newcommand{\PREP}{A.\LEN > 0}
-\newcommand{\POSTP}{mrun(A, \ell, h) \land (\forall p, q \,\cdot\, mrun(A, p, q) \Rightarrow (h - \ell) \leqslant (q - p))}
+\newcommand{\POSTP}[1]{mrun({#1}, \ell, h) \land (\forall p, q \,\cdot\, mrun({#1}, p, q) \Rightarrow (h - \ell) \leqslant (q - p))}
 \newcommand{\ENVP}{\ell, h}
-\newcommand{\INVP}{mrun(A, \ell, h)}
+\newcommand{\INVP}{\POSTP{A_{[0, i)}}}
 
 \newcommand{\INNERLOOPPOSTEXPANSION}{lrun(A, n_0, m + 1) \land (0 \leqslant (A.\LEN - (m + 1)) < (A.\LEN - m))}
 
@@ -51,7 +51,7 @@
 	\item 
 	\begin{enumerate}
 		\item $n$ is a \textbf{value} parameter. $m$ is a \textbf{result} parameter.
-		\item Our post-condition, $\POST$, expands to $\MRUN{A}{n_0}{m}$. This satisfies the form $Q \triangleq Q_1 \land Q_2$. $Q_1$ was chosen as the invariant. Thus,
+		\item Our post-condition, $\POST$, expands to $\MRUN{A}{n_0}{m}$. This satisfies the form $Q_1 \land Q_2$. $Q_1$ was chosen as the invariant. Thus,
 
 
 		\begin{eqnarray*}
@@ -196,7 +196,7 @@ $\qed$
 
 \begin{eqnarray*}
 pre & \triangleq & \PREP\\
-post & \triangleq & \POSTP
+post & \triangleq & \POSTP{A}
 \end{eqnarray*}
 
 
@@ -211,6 +211,8 @@ where
 \begin{eqnarray*}
 inv & \triangleq & \INVP
 \end{eqnarray*}
+
+This invariant was chosen as the postcondition refers to a constant $A$, which can be written $A_{[0, A.\LEN)}$, which is of the form $A^B$, where $B$ is $A.\LEN$. We replace $A.\LEN$ with a program variable $i$, to create the invariant defined above. We can further derive the negation of our guard to be $i = A.\LEN$, such that the guard is $i \neq A.\LEN$.
 
 \DERIVE
 \form{
