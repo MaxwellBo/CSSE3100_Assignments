@@ -163,22 +163,20 @@ inv \land guard & \entails & \INNERLOOPPOSTEXPANSION\\
 \INV \land \GUARD & \entails & \INNERLOOPPOSTEXPANSION
 \end{eqnarray*}
 
+Furthermore,
+
+\begin{eqnarray*}
+m < A.\LEN & \entails & 0 \leqslant (A.\LEN - (m + 1)) < (A.\LEN - m)
+\end{eqnarray*}
+
+is trivially $\true$.\\
+
 \begin{eqnarray*}
 \INV & \entails & lrun(A, n_0, m + 1)
 \end{eqnarray*}
 
-is trivially $\true$.
+because $A_{n_0} = A_m$, the $run(A, n_0, m + 1)$ in the deep depths of $mrun$ holds, noting that $run(A, n_0, m + 1)$ describes a run up to, but not including index $m + 1$. Thus, we are free to perform the assignment, expanding the $run$ range.
 
-Furthermore,
-
-\begin{eqnarray*}
-m < A.\LEN & \entails & (A.\LEN - (m + 1))
-\end{eqnarray*}
-and
-
-\begin{eqnarray*}
-(A.\LEN - (m + 1)) & < & (A.\LEN - m)
-\end{eqnarray*}
 
 All conjuncts hold, and are entailed by the LHS.
 
