@@ -25,6 +25,8 @@
 \newcommand{\ENVP}{\ell, h}
 \newcommand{\INVP}{mrun(A, \ell, h)}
 
+\newcommand{\INNERLOOPPOSTEXPANSION}{lrun(A, n_0, m + 1) \land (0 \leqslant (A.\LEN - (m + 1)) < (A.\LEN - m))}
+
 
 
 \title{\bf Assignment 3: Derivation}
@@ -137,7 +139,7 @@ V & \triangleq & A.\LEN ~-~ m
 \end{eqnarray*}
 
 \DERIVE
-\hint{\refsto} {Assignment: $inv \land \neg guard ~\entails~ (inv \land \VARIANTEXP)[m \backslash m + 1]$}
+\hint{\refsto} {Assignment: $inv \land guard ~\entails~ (inv \land \VARIANTEXP)[m \backslash m + 1]$}
 \form{
 \begin{array}{l}
 \ASSIGNMENT;\\
@@ -151,10 +153,36 @@ $\because$
 
 \begin{eqnarray*}
 (inv \land \VARIANTEXP)[m \backslash m + 1] & \equiv & (\INV \land (0 \leqslant (A.\LEN - m) < (A.\LEN - m_0)))[m, m_0 \backslash m + 1, m]\\
- & \equiv & lrun(A, n_0, m + 1) \land (0 \leqslant (A.\LEN - (m + 1)) < (A.\LEN - m))\\
+ & \equiv & \INNERLOOPPOSTEXPANSION
 \end{eqnarray*}
 
 $\therefore$
+
+\begin{eqnarray*}
+inv \land guard & \entails & \INNERLOOPPOSTEXPANSION\\
+\INV \land \GUARD & \entails & \INNERLOOPPOSTEXPANSION
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\INV & \entails & lrun(A, n_0, m + 1)
+\end{eqnarray*}
+
+is trivially $\true$.
+
+Furthermore,
+
+\begin{eqnarray*}
+m < A.\LEN & \entails & (A.\LEN - (m + 1))
+\end{eqnarray*}
+and
+
+\begin{eqnarray*}
+(A.\LEN - (m + 1)) & < & (A.\LEN - m)
+\end{eqnarray*}
+
+All conjuncts hold, and are entailed by the LHS.
+
+$\qed$
 
 	\end{enumerate}
 
