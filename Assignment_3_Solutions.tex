@@ -16,6 +16,7 @@
 \newcommand{\ASSIGNMENT}{m := n + 1}
 \newcommand{\GUARD}{(m < A.\LEN \land A_{n_{0}} = A_m)}
 \newcommand{\MRUN}[3]{lrun({#1}, {#2}, {#3}) \land ({#3} < {#1}.\LEN \Rightarrow {#1}_{#2} \neq {#1}_{#3})}
+\newcommand{\LRUN}[3]{run({#1}, {#2}, {#3}) \land ({#2} > 0 \Rightarrow A_{{#2} - 1} \neq A_{{#2}})}
 \newcommand{\IMPLIESEXPANSION}[2]{\neg ({#1}) \lor ({#2})}
 \newcommand{\VARIANTEXP}{(0 \leqslant V < V_0)}
 
@@ -175,7 +176,14 @@ is trivially $\true$.\\
 \INV & \entails & lrun(A, n_0, m + 1)
 \end{eqnarray*}
 
-because $A_{n_0} = A_m$, the $run(A, n_0, m + 1)$ in the deep depths of $mrun$ holds, noting that $run(A, n_0, m + 1)$ describes a run up to, but not including index $m + 1$. Thus, we are free to perform the assignment, expanding the $run$ range.
+
+Reiterating
+
+\begin{eqnarray*}
+lrun(A, i, j) & \triangleq & \LRUN{A}{i}{j}
+\end{eqnarray*}
+
+Because $A_{n_0} = A_m$, the $run(A, n_0, m + 1)$ holds, noting that $run(A, n_0, m + 1)$ describes a run up to, but not including index $m + 1$. Thus, we are free to perform the assignment, expanding the $run$ range.
 
 
 All conjuncts hold, and are entailed by the LHS.
