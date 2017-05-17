@@ -22,9 +22,9 @@
 
 
 \newcommand{\PREP}{A.\LEN > 0}
-\newcommand{\POSTP}[1]{mrun({#1}, \ell, h) \land (\forall p, q \,\cdot\, mrun({#1}, p, q) \Rightarrow (h - \ell) \leqslant (q - p))}
+\newcommand{\POSTP}[3]{mrun({#1}, {#2}, {#3}) \land (\forall p, q \,\cdot\, mrun({#1}, p, q) \Rightarrow ({#3} - {#2}) \leqslant (q - p))}
 \newcommand{\ENVP}{\ell, h}
-\newcommand{\INVP}{\POSTP{A_{[0, i)}}}
+\newcommand{\INVP}{\POSTP{A_{[0, i)}}{\ell}{h}}
 
 \newcommand{\INNERLOOPPOSTEXPANSION}{lrun(A, n_0, m + 1) \land (0 \leqslant (A.\LEN - (m + 1)) < (A.\LEN - m))}
 
@@ -186,7 +186,7 @@ lrun(A, i, j) & \triangleq & \LRUN{A}{i}{j}
 Because $A_{n_0} = A_m$, the $run(A, n_0, m + 1)$ holds, noting that $run(A, n_0, m + 1)$ describes a run up to, but not including index $m + 1$. Thus, we are free to perform the assignment, expanding the $run$ range.
 
 
-All conjuncts hold, and are entailed by the LHS.
+All conjuncts hold, and are entailed by the \textbf{LHS}.
 
 $\qed$
 
@@ -196,7 +196,7 @@ $\qed$
 
 \begin{eqnarray*}
 pre & \triangleq & \PREP\\
-post & \triangleq & \POSTP{A}
+post & \triangleq & \POSTP{A}{\ell}{h}
 \end{eqnarray*}
 
 
@@ -215,12 +215,29 @@ inv & \triangleq & \INVP
 This invariant was chosen as the postcondition refers to a constant $A$, which can be written $A_{[0, A.\LEN)}$, which is of the form $A^B$, where $B$ is $A.\LEN$. We replace $A.\LEN$ with a program variable $i$, to create the invariant defined above. We can further derive the negation of our guard to be $i = A.\LEN$, such that the guard is $i \neq A.\LEN$.
 
 \DERIVE
+\hint{\refsto} {Assignment: $pre \entails inv[i, \ell, h \backslash 1, 0, 1] $}
+\form{i, \ell := 1, 0, 1;\ \ENVP : [inv,\, post]}
+\ENDDERIVE
+
+$\because$
+
+\begin{eqnarray*}
+inv[i, \ell, h \backslash 1, 0, 1] & \equiv & \POSTP{A_{[0, 1)}}{0}{1} 
+\end{eqnarray*}
+
+$\therefore$
+
+\begin{eqnarray*}
+\PREP & \entails & \POSTP{A_{[0, 1)}}{0}{1} 
+\end{eqnarray*}
+
+The first conjunct is intuitively $\true$, as the maximal run of an array of $\LEN = 1$ is itself. The \textbf{LHS} of the implication is $true$ when $p = 0$ and $q = 1$
+
+\DERIVE
 \form{
 \begin{array}{l}
 \ell := 0;\\
 \Do~ \GUARD \rightarrow\\
-    \t1 m := m + 1\\
-\Od\\
 \end{array}}
 \ENDDERIVE
 
