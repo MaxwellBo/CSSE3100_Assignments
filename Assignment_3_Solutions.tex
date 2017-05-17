@@ -8,15 +8,22 @@
 % \usepackage{amsmath}
 % \usepackage{amssymb}
 
+\newcommand{\LEN}{\mbox{len}}
 \newcommand{\PRE}{lrun(A, n, n + 1)}
 \newcommand{\POST}{mrun(A, n_0, m)}
 \newcommand{\INV}{lrun(A, n_0, m)}
 \newcommand{\ENV}{n, m}
 \newcommand{\ASSIGNMENT}{m := n + 1}
-\newcommand{\GUARD}{(m < A.len \land A_{n_{0}} = A_m)}
-\newcommand{\MRUN}[3]{lrun({#1}, {#2}, {#3}) \land ({#3} < {#1}.len \Rightarrow {#1}_{#2} \neq {#1}_{#3})}
+\newcommand{\GUARD}{(m < A.\LEN \land A_{n_{0}} = A_m)}
+\newcommand{\MRUN}[3]{lrun({#1}, {#2}, {#3}) \land ({#3} < {#1}.\LEN \Rightarrow {#1}_{#2} \neq {#1}_{#3})}
 \newcommand{\IMPLIESEXPANSION}[2]{\neg ({#1}) \lor ({#2})}
 \newcommand{\VARIANTEXP}{(0 \leqslant V < V_0)}
+
+
+\newcommand{\PREP}{A.\LEN > 0}
+\newcommand{\POSTP}{mrun(A, \ell, h) \land (\forall p, q \,\cdot\, mrun(A, p, q) \Rightarrow (h - \ell) \leqslant (q - p))}
+\newcommand{\ENVP}{\ell, h}
+
 
 
 \title{\bf Assignment 3: Derivation}
@@ -101,9 +108,9 @@ $\because$
 \hint{\equiv} {Expansion of functions}
 \form{\INV \land \neg \GUARD ~\entails~ \MRUN{A}{n_0}{m}}
 \hint{\equiv} {De Morgan's law - negation of conjunction}
-\form{\INV \land (\neg (m < A.len) \lor \neg (A_{n_{0}} = A_m)) ~ \entails~ \MRUN{A}{n_0}{m}}
+\form{\INV \land (\neg (m < A.\LEN) \lor \neg (A_{n_{0}} = A_m)) ~ \entails~ \MRUN{A}{n_0}{m}}
 \hint{\equiv} {$P \Rightarrow Q  ~\equiv~ \neg P \lor Q$}
-\form{\INV \land (\neg (m < A.len) \lor \neg (A_{n_{0}} = A_m)) ~ \entails~ lrun(A, n_0, m) \land (\IMPLIESEXPANSION{m < A.len}{A_{n_{0}} \neq A_m})}
+\form{\INV \land (\neg (m < A.\LEN) \lor \neg (A_{n_{0}} = A_m)) ~ \entails~ lrun(A, n_0, m) \land (\IMPLIESEXPANSION{m < A.\LEN}{A_{n_{0}} \neq A_m})}
 \hint{\equiv} {}
 \form{\true}
 \ENDDERIVE
@@ -124,7 +131,7 @@ $\because$
 where
 
 \begin{eqnarray*}
-V & \triangleq & A.len ~-~ m
+V & \triangleq & A.\LEN ~-~ m
 \end{eqnarray*}
 
 \DERIVE
@@ -141,12 +148,19 @@ V & \triangleq & A.len ~-~ m
 $\because$
 
 \begin{eqnarray*}
-(inv \land \VARIANTEXP)[m \backslash m + 1] & \equiv & (\INV \land (0 \leqslant (A.len - m) < (???)))[m \backslash m + 1]\\
- & \equiv & lrun(A, n_0, m + 1) \land (0 \leqslant (A.len - (m + 1)) < (???))\\
+(inv \land \VARIANTEXP)[m \backslash m + 1] & \equiv & (\INV \land (0 \leqslant (A.\LEN - m) < (???)))[m \backslash m + 1]\\
+ & \equiv & lrun(A, n_0, m + 1) \land (0 \leqslant (A.\LEN - (m + 1)) < (???))\\
 \end{eqnarray*}
 
+TODO
 
 	\end{enumerate}
+
+\item
+
+\DERIVE
+\form{\ENVP : [\PREP,\, \POSTP]}
+\ENDDERIVE
 
 \end{enumerate}
 
