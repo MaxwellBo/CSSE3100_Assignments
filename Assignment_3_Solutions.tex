@@ -233,7 +233,7 @@ $\therefore$
 
 The first conjunct is intuitively $true$, as the maximal run of an array of $\LEN = 1$ is itself.
 
-The \textbf{LHS} of the implication in the second conjunct is $true$ only when $p = 0$ and $q = 1$. The \textbf{RHS} is then $(1 - 0) \leqslant (1 - 0)$. Thus, the implication is $true$ for these values of $p$ and $q$. All other values of $p$ and $q$ cause the implication to be $true$. Thus, the second conjunct is $true$. Thus, the entailment holds as
+The \textbf{LHS} of the implication in the second conjunct is $true$ only when $p = 0$ and $q = 1$. The \textbf{RHS} is then $(1 - 0) \leqslant (1 - 0)$. Thus, the implication is $true$ for these values of $p$ and $q$. All other values of $p$ and $q$ cause the \textbf{LHS} of the implication to be $false$, and thus the implication to be $true$. Thus, the second conjunct is $true$. Thus, the entailment holds as
 
 \begin{eqnarray*}
 \PREP & \entails & \true \land \true 
@@ -276,7 +276,7 @@ As $A_{[0, A.len)} \equiv A$, the entailment holds.
 \begin{array}{l}
 \ASSIGNMENTP;\\
 \Do~ \GUARDP \rightarrow\\
-    \t1 \ENV:[inv \land guard,\, inv \land \VARIANTEXP]\\
+    \t1 \ENVP:[inv \land guard,\, inv \land \VARIANTEXP]\\
 \Od\\
 \end{array}}
 \ENDDERIVE
