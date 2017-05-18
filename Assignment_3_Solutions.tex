@@ -49,9 +49,10 @@
 		inv & \triangleq & \INV
 		\end{eqnarray*}
 
-		$Q_2$ is chosen as the \textit{negation} of the guard, such that the guard, by pattern matching
+		$Q_2$ is chosen as the \textit{negation} of the guard, s.t.
 
 		\begin{eqnarray*}
+		\neg guard & \triangleq & m < A.\LEN \Rightarrow A_{n_0} \neq A_m\\
 		guard & \triangleq & \neg (m < A.\LEN \Rightarrow A_{n_0} \neq A_m)\\
 			& \triangleq & \neg (\neg (m < A.\LEN) \lor (A_{n_0} \neq A_m))\\
 			& \triangleq & (m < A.\LEN) \land \neg (A_{n_0} \neq A_m)\\
